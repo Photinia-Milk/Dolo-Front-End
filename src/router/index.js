@@ -1,14 +1,15 @@
  import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+// import Home from '../views/Home.vue'
+ import NavBarStudent from "../views/student/components/NavBarStudent";
 
 Vue.use(VueRouter)
 
   const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'NavBarStudent',
+    component: NavBarStudent
   },
   {
     path: '/about',
