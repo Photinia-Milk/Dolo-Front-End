@@ -1,24 +1,21 @@
  import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '../views/Home.vue'
- import NavBarStudent from "../views/student/components/NavBarStudent";
-
+import Login from "../views/Login";
+import TeacherMain from "../views/teacher/TeacherMain";
 Vue.use(VueRouter)
 
   const routes = [
-  {
-    path: '/',
-    name: 'NavBarStudent',
-    component: NavBarStudent
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    {
+      path: '/',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/teacher',
+      name: 'TeacherMain',
+      component: TeacherMain
+    },
+
 ]
 
 const router = new VueRouter({
