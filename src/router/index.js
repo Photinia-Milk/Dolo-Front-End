@@ -1,10 +1,10 @@
  import Vue from 'vue'
 import VueRouter from 'vue-router'
-//import Login from "../views/Login";
+import Login from "../views/Login";
 import TeacherMain from "../views/teacher/TeacherMain";
  import PublishCourse from "../views/teacher/PublishCourse";
 
- import CourseTable from "../components/CourseTable";
+ //import CourseTable from "../components/CourseTable";
 Vue.use(VueRouter)
  // const ti import(/* webpackChunkName: "timeTable" */ '../components/CourseTable')
   const routes = [
@@ -12,7 +12,7 @@ Vue.use(VueRouter)
       path: '/',
       name: 'Login',
       // component: timeTable()
-      component: CourseTable
+      component: Login
     },
     {
       path: '/teacher',
