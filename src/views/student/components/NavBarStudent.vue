@@ -23,12 +23,11 @@
                     <el-menu-item index="course_select">自主选课</el-menu-item>
                     <el-menu-item index="undevelop">推荐课表选课(开发中)</el-menu-item>
                     <el-menu-item index="undevelop">重修选课(开发中)</el-menu-item>
-                    <el-menu-item index="course_drop">退选</el-menu-item>
                 </el-submenu>
                 <el-submenu index="3">
                     <template slot="title">信息查询</template>
-                    <el-menu-item index="course_list">学生课表查询</el-menu-item>
-                    <el-menu-item index="gpa">GPA/学积分查询</el-menu-item>
+                    <el-menu-item index="course_list">学生课表查询(开发中)</el-menu-item>
+                    <el-menu-item index="gpa">GPA/学积分查询(开发中)</el-menu-item>
                 </el-submenu>
                 <el-submenu index="4">
                     <template slot="title">教学项目报名</template>
@@ -41,7 +40,7 @@
                 </el-submenu>
                 <el-submenu index="6">
                     <template slot="title">教学评价</template>
-                    <el-menu-item index="course_evaluate">学生评价</el-menu-item>
+                    <el-menu-item index="course_evaluate">学生评价(开发中)</el-menu-item>
                 </el-submenu>
 <!--                <el-menu-item index="browse"></el-menu-item>-->
                 <el-menu-item index="4"><a href="" target="_blank">联系我们</a></el-menu-item>

@@ -76,7 +76,7 @@
 
 <script>
     export default {
-        name: 'NavBarStudent',
+        name: 'NavBarTeacher',
         data() {
             return {
                 activeIndex: 'browse',
