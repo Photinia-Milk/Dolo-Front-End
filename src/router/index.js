@@ -1,8 +1,10 @@
- import Vue from 'vue'
+import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from "../views/Login";
 import TeacherMain from "../views/teacher/TeacherMain";
- import PublishCourse from "../views/teacher/PublishCourse";
+import PublishCourse from "../views/teacher/PublishCourse";
+import Student from "../views/student/Student";
+import CourseSelect from "../views/student/components/CourseSelect";
 
  //import CourseTable from "../components/CourseTable";
 Vue.use(VueRouter)
@@ -15,6 +17,26 @@ Vue.use(VueRouter)
       component: Login
     },
     {
+      path: '/student',
+      name: 'Student',
+      component: Student,
+      children: [
+        {
+          path: '/',
+          redirect: 'course_select'
+        },
+        {
+          path: 'course_select',
+          component: CourseSelect
+        }
+      ]
+    },
+    // {
+    //   path: '/',
+    //   name: 'SelectCourse',
+    //   component: SelectCourse
+    // },
+    {
       path: '/teacher',
       name: 'TeacherMain',
       component: TeacherMain,
@@ -25,7 +47,7 @@ Vue.use(VueRouter)
           component: PublishCourse,
         }
       ]
-    }
+    },
 ]
 
 const router = new VueRouter({
