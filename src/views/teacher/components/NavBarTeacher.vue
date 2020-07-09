@@ -19,7 +19,7 @@
                 <!--                之后会增加-->
                 <el-submenu index="2">
                     <template slot="title">课程申请</template>
-                    <el-menu-item index="rtrys">发布课程</el-menu-item>
+                    <el-menu-item index="publish">发布课程</el-menu-item>
                     <el-menu-item index="asdf">课程修改</el-menu-item>
                     <el-menu-item index="zxcv">往年课程</el-menu-item>
                 </el-submenu>

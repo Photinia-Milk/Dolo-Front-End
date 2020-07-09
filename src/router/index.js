@@ -2,6 +2,7 @@
 import VueRouter from 'vue-router'
 import Login from "../views/Login";
 import TeacherMain from "../views/teacher/TeacherMain";
+ import PublishCourse from "../views/teacher/PublishCourse";
 Vue.use(VueRouter)
 
   const routes = [
@@ -13,7 +14,14 @@ Vue.use(VueRouter)
     {
       path: '/teacher',
       name: 'TeacherMain',
-      component: TeacherMain
+      component: TeacherMain,
+      children: [
+        {
+          path: '/publish',
+          name: 'PublishCourse',
+          component: PublishCourse,
+        }
+      ]
     },
 ]
 
