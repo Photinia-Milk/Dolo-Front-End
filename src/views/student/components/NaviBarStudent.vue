@@ -1,9 +1,6 @@
 <template>
     <div class="navContainer" >
         <div class = "navRoot" >
-            <img  src="@/assets/icons/book-icon.png"
-                  alt=""
-                  class="bookIcon"/>
             <div class="studentNameDiv" >
                 <p class="studentName">{{studentName}}</p>
             </div>

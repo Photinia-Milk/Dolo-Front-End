@@ -1,12 +1,15 @@
 <template>
-    <NaviBarStudent></NaviBarStudent>
+    <div>
+        <NavBarStudent></NavBarStudent>
+    </div>
+
 </template>
 
 <script>
-    import NaviBarStudent from './components/NaviBarStudent'
+    import NavBarStudent from './components/NavBarStudent'
     export default {
         components: {
-            NaviBarStudent,
+            NavBarStudent,
         }
     }
 </script>
