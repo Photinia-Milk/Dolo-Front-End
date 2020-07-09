@@ -1,14 +1,19 @@
  import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from "../views/Login";
+import CourseTable from "../components/CourseTable";
 Vue.use(VueRouter)
 
   const routes = [
-  {
-    path: '/',
-    name: 'Login',
-    component: Login
-  }
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/',
+      component: CourseTable
+    }
 ]
 
 const router = new VueRouter({
