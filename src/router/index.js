@@ -1,18 +1,30 @@
  import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from "../views/Login";
-import CourseTable from "../components/CourseTable";
-Vue.use(VueRouter)
+//import Login from "../views/Login";
+import TeacherMain from "../views/teacher/TeacherMain";
+ import PublishCourse from "../views/teacher/PublishCourse";
 
+ import CourseTable from "../components/CourseTable";
+Vue.use(VueRouter)
+ // const ti import(/* webpackChunkName: "timeTable" */ '../components/CourseTable')
   const routes = [
     {
-      path: '/login',
+      path: '/',
       name: 'Login',
-      component: Login
+      // component: timeTable()
+      component: CourseTable
     },
     {
-      path: '/',
-      component: CourseTable
+      path: '/teacher',
+      name: 'TeacherMain',
+      component: TeacherMain,
+      children: [
+        {
+          path: '/publish',
+          name: 'PublishCourse',
+          component: PublishCourse,
+        }
+      ]
     }
 ]
 

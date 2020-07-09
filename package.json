@@ -8,16 +8,22 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@lkmadushan/vue-tuicalendar": "^0.1.6",
+    "@fullcalendar/core": "^4.4.1",
+    "@fullcalendar/daygrid": "^4.4.2",
+    "@fullcalendar/interaction": "^4.4.2",
+    "@fullcalendar/timegrid": "^4.4.2",
+    "@fullcalendar/vue": "^4.4.2",
+    "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
-    "tui-calendar": "^1.12.13",
-    "vant": "^2.9.0",
+    "mockjs": "^1.1.0",
+    "nprogress": "^0.2.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
+    "@lkmadushan/vue-tuicalendar": "^0.1.6",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
     "@vue/cli-plugin-router": "~4.4.0",
