@@ -11,7 +11,7 @@ Vue.use(VueRouter)
       component: Login
     },
     {
-      path: 'Teacher',
+      path: '/teacher',
       name: 'TeacherMain',
       component: TeacherMain
     },
