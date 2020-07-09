@@ -1,0 +1,218 @@
+<template>
+    <div id="courseTable">
+        <el-table
+                :data="tableData"
+                style="width: 100%">
+            <el-table-column
+                    fixed
+                    label="教学班"
+                    width="180">
+                <template slot-scope="scope">
+                    <!--                <i class="el-icon-time"></i>-->
+                    <span style="margin-left: 10px">{{ scope.row.class }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    fixed
+                    label="课程名称"
+                    width="220">
+                <template slot-scope="scope">
+                    <!--                <i class="el-icon-time"></i>-->
+                    <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="上课教师"
+                    width="180">
+                <template slot-scope="scope">
+                    <!--                <i class="el-icon-time"></i>-->
+                    <span style="margin-left: 10px">{{ scope.row.teacher }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="上课地点"
+                    width="150">
+                <template slot-scope="scope">
+                    <el-popover trigger="hover" placement="top">
+                        <p>教室: {{ scope.row.location }}</p>
+                        <p>校区: {{ scope.row.area }}</p>
+                        <div slot="reference" class="name-wrapper">
+                            <el-tag size="medium">{{ scope.row.location }}</el-tag>
+                        </div>
+                    </el-popover>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="备注"
+                    width="180">
+                <template slot-scope="scope">
+                    <!--                <i class="el-icon-time"></i>-->
+                    <span style="margin-left: 10px">{{ scope.row.remarks }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="课程性质"
+                    width="180">
+                <template slot-scope="scope">
+                    <!--                <i class="el-icon-time"></i>-->
+                    <span style="margin-left: 10px">{{ scope.row.type }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    fixed="right"
+                    label="已选/容量"
+                    width="180">
+                <template slot-scope="scope">
+                    <div  v-if="scope.row.if_select===false">
+                        <span style="margin-left: 10px">{{ scope.row.current }}/{{scope.row.max}}</span>
+                    </div>
+                    <div v-else>
+                        <span style="margin-left: 10px">{{ scope.row.current + 1}}/{{scope.row.max}}</span>
+                    </div>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    fixed="right"
+                    label="操作"
+                    width="180"
+            >
+                <template slot-scope="scope">
+                    <div  v-if="scope.row.if_select === true">
+                        <el-button
+                                size="mini"
+                                type="danger"
+                                @click="handleDrop(scope.$index, scope.row)">退选</el-button>
+                    </div>
+                    <div v-else>
+                        <el-button
+                                size="mini"
+                                @click="handleSelect(scope.$index, scope.row)">选课</el-button>
+                    </div>
+                </template>
+            </el-table-column>
+        </el-table>
+    </div>
+
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                tableData: [{
+                    class: '(2019-2020-1)-SE118-1',
+                    name: '计算机系统基础（汇编）',
+                    teacher: '臧斌宇,陈榕',
+                    area: '闵行',
+                    location: '中院413',
+                    score: 3,
+                    time: '星期一第3-4节{1-16周}\n' +
+                        '星期三第1-2节{1-15周(单)}',
+                    remarks: '实践环节：虚拟时间',
+                    type: '必修',
+                    max: 121,
+                    current: 100,
+                    if_select: false
+                }, {
+                    class: '(2019-2020-1)-SE118-1',
+                    name: '计算机系统基础（汇编）',
+                    teacher: '臧斌宇,陈榕',
+                    area: '闵行',
+                    location: '中院413',
+                    score: 3,
+                    time: '星期一第3-4节{1-16周}\n' +
+                        '星期三第1-2节{1-15周(单)}',
+                    remarks: '实践环节：虚拟时间',
+                    type: '必修',
+                    max: 121,
+                    current: 100,
+                    if_select: false
+                }, {
+                    class: '(2019-2020-1)-SE118-1',
+                    name: '计算机系统基础（汇编）',
+                    teacher: '臧斌宇,陈榕',
+                    area: '闵行',
+                    location: '中院413',
+                    score: 3,
+                    time: '星期一第3-4节{1-16周}\n' +
+                        '星期三第1-2节{1-15周(单)}',
+                    remarks: '实践环节：虚拟时间',
+                    type: '必修',
+                    max: 121,
+                    current: 100,
+                    if_select: false
+                }, {
+                    class: '(2019-2020-1)-SE118-1',
+                    name: '计算机系统基础（汇编）',
+                    teacher: '臧斌宇,陈榕',
+                    area: '闵行',
+                    location: '中院413',
+                    score: 3,
+                    time: '星期一第3-4节{1-16周}\n' +
+                        '星期三第1-2节{1-15周(单)}',
+                    remarks: '实践环节：虚拟时间',
+                    type: '必修',
+                    max: 121,
+                    current: 100,
+                    if_select: true
+                }, {
+                    class: '(2019-2020-1)-SE118-1',
+                    name: '计算机系统基础（汇编）',
+                    teacher: '臧斌宇,陈榕',
+                    area: '闵行',
+                    location: '中院413',
+                    score: 3,
+                    time: '星期一第3-4节{1-16周}\n' +
+                        '星期三第1-2节{1-15周(单)}',
+                    remarks: '实践环节：虚拟时间',
+                    type: '必修',
+                    max: 121,
+                    current: 100,
+                    if_select: true
+                }
+                ]
+            }
+        },
+        methods: {
+            handleSelect(index, row) {
+                console.log("before");
+                console.log(index, row);
+                if(row.if_select === false){
+                    row.if_select = true;
+                }
+                this.$message({
+                    type: 'success',
+                    message: '选课成功!'
+                });
+                console.log("after");
+                console.log(index, row);
+            },
+            handleDrop(index, row) {
+                this.$confirm('是否退选此门课程？', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    if(row.if_select === true){
+                        row.if_select = false;
+                    }
+                    console.log(index, row);
+                    this.$message({
+                        type: 'success',
+                        message: '退选成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消退选'
+                    });
+                });
+            }
+        },
+        name: "CourseTable"
+    }
+</script>
+
+<style scoped>
+
+</style>
