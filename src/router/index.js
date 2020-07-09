@@ -1,4 +1,6 @@
+
 import Vue from 'vue'
+
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
@@ -10,10 +12,12 @@ Vue.use(VueRouter)
     name: 'Home',
     component: Home
   },
+
     {
       path:'/',
       redirect:'/Home'
     },
+
   {
     path: '/about',
     name: 'About',
@@ -22,12 +26,12 @@ Vue.use(VueRouter)
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   }
-]
+];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
-})
+});
 
 export default router

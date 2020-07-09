@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # OSX
 #
 .DS_Store
@@ -57,3 +58,27 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+=======
+.DS_Store
+node_modules
+/dist
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+>>>>>>> d544887bbabfb44ece5d0457c3e874cdb51bc4bc
