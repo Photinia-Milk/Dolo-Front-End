@@ -1,6 +1,9 @@
 <template>
     <div class="navContainer" >
         <div class = "navRoot" >
+            <img  src="@/assets/logo.png"
+                  alt=""
+                  class="iconNav"/>
             <div class="studentNameDiv" >
                 <p class="studentName">{{studentName}}</p>
             </div>
@@ -12,7 +15,7 @@
                     @select="handleSelect"
                     text-color="#a0c4fd"
                     active-text-color="#4189fa"
-                    style=" height: 59px; margin-left: auto;">
+                    style=" height: 59px; margin-left: auto; margin-right:20px;">
 
                 <el-submenu index="1">
                     <template slot="title">学生账号</template>
@@ -50,6 +53,13 @@
 </template>
 
 <style>
+    .iconNav{
+        margin-left: 11px;
+        margin-top: 7px;
+        margin-right: 8px;
+        width: 45px;
+        height: 45px;
+    }
     .navContainer{
         height: 70px;
     }
@@ -64,7 +74,7 @@
         font-family: "Hiragino Sans GB";
         font-weight: bold;
         font-size: 30px;
-        margin-top: -7px;
+        margin-top: 6px;
     }
     .studentNameDiv{
         margin-top:7px;

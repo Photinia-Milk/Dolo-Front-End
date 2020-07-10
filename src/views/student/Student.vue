@@ -1,8 +1,7 @@
 <template>
-    <div>
-    <div class="bookstore-container">
+    <div class="student-container">
         <el-scrollbar style="height: 100%">
-            <el-container style=" width: 1440px; height:100%;">
+            <el-container style=" width: 1400px; height:100%;">
                 <el-header >
                     <NavBarStudent class="header"> </NavBarStudent>
                 </el-header>
@@ -20,7 +19,6 @@
             </el-container>
         </el-scrollbar>
     </div>
-    </div>
 </template>
 
 <script>
@@ -33,11 +31,15 @@
 </script>
 
 <style scoped>
+    .el-scrollbar__wrap {
+        overflow: visible;
+        overflow-x: hidden;
+    }
     .footer-spacer{
         height: 240px;
     }
-    .bookstore-container{
-        height: 768px;
+    .student-container{
+        height: 100%;
         justify-content: center;
         align-items: center;
     }
