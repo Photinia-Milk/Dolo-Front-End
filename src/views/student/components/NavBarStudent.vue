@@ -4,8 +4,8 @@
             <img  src="@/assets/logo.png"
                   alt=""
                   class="iconNav"/>
-            <div class="studentNameDiv" >
-                <p class="studentName">{{studentName}}</p>
+            <div class="DoloNameDiv" >
+                <p class="DoloName">{{DoloName}}</p>
             </div>
             <el-menu
                     :default-active="activeIndex"
@@ -64,19 +64,20 @@
         height: 70px;
     }
     .navRoot{
+        margin-right: 30px;
         margin-top: 10px;
         height: 59px;
         display: flex;
         border-bottom: 1px #eeeeee solid;
     }
-    .studentName{
+    .DoloName{
         color: #FAFAFA;
         font-family: "Hiragino Sans GB";
         font-weight: bold;
         font-size: 30px;
         margin-top: 6px;
     }
-    .studentNameDiv{
+    .DoloNameDiv{
         margin-top:7px;
         margin-bottom: 7px;
         border-radius: 30px;
@@ -91,7 +92,7 @@
         data() {
             return {
                 activeIndex: 'browse',
-                studentName: "Dolo",
+                DoloName: "Dolo",
             };
         },
         methods: {
