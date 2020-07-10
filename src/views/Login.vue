@@ -78,11 +78,11 @@
                         "user_name": this.user_name.toString(),
                         "password": this.password.toString()
                     })
-                    .then(successResponse => {
-                        // let responseResult = successResponse.data;
-                        console.log("login status code: " + successResponse.data.status );
-                        // if (successResponse.data.status === 0) {
-                        if (successResponse.status === 0) {
+                    .then(responseResult => {
+                        let successResponse = responseResult.data;
+                        console.log("login status code: " + responseResult.data.status );
+                        if (responseResult.data.status === 0) {
+                        // if (successResponse.status === 0) {
                             // 如果是管理员账户，去管理员界面
                             if (successResponse.user_type == 0) {
                                 this.$message({
