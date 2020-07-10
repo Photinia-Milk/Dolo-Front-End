@@ -83,6 +83,40 @@
                         console.log("login status code: " + successResponse.data.status );
                         // if (successResponse.data.status === 0) {
                         if (successResponse.status === 0) {
+                            // 如果是管理员账户，去管理员界面
+                            if (successResponse.user_type == 0) {
+                                this.$message({
+                                    message: "登录成功 :)",
+                                    type: "success",
+                                });
+                                // this.$router.push({path: '/admin'})
+
+                            }
+                            // 如果是学生账户，去学生界面
+                            else if(successResponse.user_type == 1)
+                            {
+                                this.$message({
+                                    message: "欢迎您，**同学 :)",
+                                    type: "success",
+                                });
+                                this.$router.push({path: '/student'})
+                            }
+                            // 如果是老师账户，去老师界面
+                            else if (successResponse.user_type == 2) {
+                                this.$message({
+                                    message: "欢迎您，**老师 :)",
+                                    type: "success",
+                                });
+                                this.$router.push({path: '/teacher'})
+                            }
+                            //都不是，报错
+                            else {
+                                this.$message({
+                                    message: "出现未知用户类型错误 :(",
+                                    type: "error",
+                                });
+                            }
+                            this.$router.push({path: '/admin'})
                             // sessionStorage.setItem("token", responseResult.data.token);
                             // sessionStorage.setItem("user_name", responseResult.data.name);
                             // sessionStorage.setItem("user_type", responseResult.data.user_type);
