@@ -1,7 +1,7 @@
 //登录
 <template>
     <div class="login" id="login">
-        <a href="javascript:;" class="log-close"><i class="icons close"></i></a>
+        <a href="javascript:" class="log-close"><i class="icons close"></i></a>
         <div class="log-bg">
             <div class="log-cloud cloud1"></div>
             <div class="log-cloud cloud2"></div>
@@ -13,7 +13,7 @@
         </div>
         <div class="log-email">
             <input type="text" placeholder="Email" :class="'log-input' + (user_name==''?' log-input-empty':'')" v-model="user_name"><input type="password" placeholder="Password" :class="'log-input' + (password==''?' log-input-empty':'')"  v-model="password">
-            <a href="javascript:;" class="log-btn" @click="login">Login</a>
+            <a href="javascript:" class="log-btn" @click="login">Login</a>
         </div>
         <Loading v-if="isLoging" marginTop="-30%"></Loading>
     </div>
