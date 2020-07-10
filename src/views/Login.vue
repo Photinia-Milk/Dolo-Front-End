@@ -165,7 +165,7 @@
                     this.setCookie('session','blablablablabla...', expireDays);
                     this.isLoging = false;
                     //登录成功后
-                    this.$router.push('/user_info/');
+                    this.$router.push('/student/');
                 },3000)
             }
         }
