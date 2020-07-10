@@ -5,49 +5,29 @@
                 style="width: 100%">
             <el-table-column
                     fixed
-                    label="教学班"
-                    width="180">
-                <template slot-scope="scope">
-                    <!--                <i class="el-icon-time"></i>-->
-                    <span style="margin-left: 10px">{{ scope.row.class }}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    fixed
                     label="课程名称"
                     width="220">
                 <template slot-scope="scope">
-                    <!--                <i class="el-icon-time"></i>-->
-                    <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                        <el-popover trigger="hover" placement="top">
+                            <p>教学班: {{ scope.row.class }}</p>
+                            <p>上课教师: {{ scope.row.teacher }}</p>
+                            <div slot="reference" class="name-wrapper">
+                                <el-tag size="medium">{{ scope.row.name }}</el-tag>
+                            </div>
+                        </el-popover>
                 </template>
             </el-table-column>
             <el-table-column
-                    label="上课教师"
+                    label="教室"
                     width="180">
                 <template slot-scope="scope">
-                    <!--                <i class="el-icon-time"></i>-->
-                    <span style="margin-left: 10px">{{ scope.row.teacher }}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="上课地点"
-                    width="150">
-                <template slot-scope="scope">
                     <el-popover trigger="hover" placement="top">
-                        <p>教室: {{ scope.row.location }}</p>
                         <p>校区: {{ scope.row.area }}</p>
+                        <p>课程备注: {{ scope.row.remarks}}</p>
                         <div slot="reference" class="name-wrapper">
                             <el-tag size="medium">{{ scope.row.location }}</el-tag>
                         </div>
                     </el-popover>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="备注"
-                    width="180">
-                <template slot-scope="scope">
-                    <!--                <i class="el-icon-time"></i>-->
-                    <span style="margin-left: 10px">{{ scope.row.remarks }}</span>
                 </template>
             </el-table-column>
             <el-table-column
