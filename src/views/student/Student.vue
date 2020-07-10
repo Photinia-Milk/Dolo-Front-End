@@ -19,7 +19,7 @@
 </template>
 
 <script>
-    import NavBarStudent from "../student/components/NavBarStudent";
+    import NavBarStudent from "./components/navbar/NavBarStudent";
     export default {
         components: {
             NavBarStudent,

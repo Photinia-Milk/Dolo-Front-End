@@ -12,8 +12,8 @@
 </template>
 
 <script>
-    import SearchBox from "./SearchBox";
-    import CourseTable from "./CourseTable";
+    import SearchBox from "./components/SearchBox";
+    import CourseTable from "./components/CourseTable";
     export default {
         name: "CourseSelect",
         components: {
