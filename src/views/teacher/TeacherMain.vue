@@ -6,8 +6,8 @@
 </template>
 
 <script>
-    import NavBarStudent from './components/NavBarTeacher';
-    import PublishCourse from "./PublishCourse";
+    import NavBarStudent from './components/navbar/NavBarTeacher';
+    import PublishCourse from "./components/publish/PublishCourse";
     export default {
         components: {
             PublishCourse,

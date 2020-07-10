@@ -1,15 +1,11 @@
 <template>
-    <div>
-    <div class="bookstore-container">
+    <div class="student-container">
         <el-scrollbar style="height: 100%">
-            <el-container style=" width: 1440px; height:100%;">
+            <el-container style=" width: 1400px; height:100%;">
                 <el-header >
                     <NavBarStudent class="header"> </NavBarStudent>
                 </el-header>
                 <el-container style="margin-top: 80px;">
-<!--                    <el-aside width="202px">-->
-<!--                        <SideBar class="aside"></SideBar>-->
-<!--                    </el-aside >-->
                     <el-main style=" padding-top:0px; margin-top:-52px">
                         <router-view></router-view>
                     </el-main>
@@ -20,11 +16,10 @@
             </el-container>
         </el-scrollbar>
     </div>
-    </div>
 </template>
 
 <script>
-    import NavBarStudent from "../student/components/NavBarStudent";
+    import NavBarStudent from "./components/navbar/NavBarStudent";
     export default {
         components: {
             NavBarStudent,
@@ -33,11 +28,15 @@
 </script>
 
 <style scoped>
+    .el-scrollbar__wrap {
+        overflow: visible;
+        overflow-x: hidden;
+    }
     .footer-spacer{
         height: 240px;
     }
-    .bookstore-container{
-        height: 768px;
+    .student-container{
+        height: 100%;
         justify-content: center;
         align-items: center;
     }

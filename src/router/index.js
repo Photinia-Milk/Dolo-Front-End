@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from "../views/Login";
+import Login from "../views/login/Login";
 import TeacherMain from "../views/teacher/TeacherMain";
-import PublishCourse from "../views/teacher/PublishCourse";
+import PublishCourse from "../views/teacher/components/publish/PublishCourse";
 import Student from "../views/student/Student";
-import CourseSelect from "../views/student/components/CourseSelect";
+import CourseSelect from "../views/student/components/select/CourseSelect";
 
  //import CourseTable from "../components/CourseTable";
 Vue.use(VueRouter)

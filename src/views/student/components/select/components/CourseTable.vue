@@ -1,41 +1,29 @@
 <template>
-    <div id="courseTable">
+    <el-card id="courseTable" class="box-card">
         <el-table
                 :data="tableData"
                 style="width: 100%">
             <el-table-column
                     fixed
-                    label="教学班"
-                    width="180">
-                <template slot-scope="scope">
-                    <!--                <i class="el-icon-time"></i>-->
-                    <span style="margin-left: 10px">{{ scope.row.class }}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    fixed
                     label="课程名称"
-                    width="220">
+                    width="260">
                 <template slot-scope="scope">
-                    <!--                <i class="el-icon-time"></i>-->
-                    <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                        <el-popover trigger="hover" placement="top">
+                            <p>教学班: {{ scope.row.class }}</p>
+                            <p>上课教师: {{ scope.row.teacher }}</p>
+                            <div slot="reference" class="name-wrapper">
+                                <el-tag size="medium">{{ scope.row.name }}</el-tag>
+                            </div>
+                        </el-popover>
                 </template>
             </el-table-column>
             <el-table-column
-                    label="上课教师"
-                    width="180">
-                <template slot-scope="scope">
-                    <!--                <i class="el-icon-time"></i>-->
-                    <span style="margin-left: 10px">{{ scope.row.teacher }}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="上课地点"
-                    width="150">
+                    label="教室"
+                    width="95">
                 <template slot-scope="scope">
                     <el-popover trigger="hover" placement="top">
-                        <p>教室: {{ scope.row.location }}</p>
                         <p>校区: {{ scope.row.area }}</p>
+                        <p>课程备注: {{ scope.row.remarks}}</p>
                         <div slot="reference" class="name-wrapper">
                             <el-tag size="medium">{{ scope.row.location }}</el-tag>
                         </div>
@@ -43,16 +31,8 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    label="备注"
-                    width="180">
-                <template slot-scope="scope">
-                    <!--                <i class="el-icon-time"></i>-->
-                    <span style="margin-left: 10px">{{ scope.row.remarks }}</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    label="课程性质"
-                    width="180">
+                    label="种类"
+                    width="75">
                 <template slot-scope="scope">
                     <!--                <i class="el-icon-time"></i>-->
                     <span style="margin-left: 10px">{{ scope.row.type }}</span>
@@ -60,8 +40,8 @@
             </el-table-column>
             <el-table-column
                     fixed="right"
-                    label="已选/容量"
-                    width="180">
+                    label="状态"
+                    width="140">
                 <template slot-scope="scope">
                     <div  v-if="scope.row.if_select===false">
                         <span style="margin-left: 10px">{{ scope.row.current }}/{{scope.row.max}}</span>
@@ -74,7 +54,6 @@
             <el-table-column
                     fixed="right"
                     label="操作"
-                    width="180"
             >
                 <template slot-scope="scope">
                     <div  v-if="scope.row.if_select === true">
@@ -91,10 +70,32 @@
                 </template>
             </el-table-column>
         </el-table>
-    </div>
+    </el-card>
 
 </template>
 
+<style>
+    .text {
+        font-size: 14px;
+    }
+
+    .item {
+        margin-bottom: 18px;
+    }
+
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        content: "";
+    }
+    .clearfix:after {
+        clear: both
+    }
+
+    .box-card {
+        width: 700px;
+    }
+</style>
 <script>
     export default {
         data() {
