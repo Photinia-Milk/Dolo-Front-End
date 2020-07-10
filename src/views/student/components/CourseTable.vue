@@ -19,7 +19,7 @@
             </el-table-column>
             <el-table-column
                     label="教室"
-                    width="80">
+                    width="95">
                 <template slot-scope="scope">
                     <el-popover trigger="hover" placement="top">
                         <p>校区: {{ scope.row.area }}</p>
@@ -32,7 +32,7 @@
             </el-table-column>
             <el-table-column
                     label="种类"
-                    width="60">
+                    width="75">
                 <template slot-scope="scope">
                     <!--                <i class="el-icon-time"></i>-->
                     <span style="margin-left: 10px">{{ scope.row.type }}</span>
@@ -40,8 +40,8 @@
             </el-table-column>
             <el-table-column
                     fixed="right"
-                    label="已选/容量"
-                    width="180">
+                    label="状态"
+                    width="140">
                 <template slot-scope="scope">
                     <div  v-if="scope.row.if_select===false">
                         <span style="margin-left: 10px">{{ scope.row.current }}/{{scope.row.max}}</span>
@@ -54,7 +54,6 @@
             <el-table-column
                     fixed="right"
                     label="操作"
-                    width="90"
             >
                 <template slot-scope="scope">
                     <div  v-if="scope.row.if_select === true">
@@ -94,7 +93,7 @@
     }
 
     .box-card {
-        width: 740px;
+        width: 700px;
     }
 </style>
 <script>

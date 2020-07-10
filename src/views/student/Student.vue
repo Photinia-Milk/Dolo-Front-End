@@ -6,9 +6,6 @@
                     <NavBarStudent class="header"> </NavBarStudent>
                 </el-header>
                 <el-container style="margin-top: 80px;">
-<!--                    <el-aside width="202px">-->
-<!--                        <SideBar class="aside"></SideBar>-->
-<!--                    </el-aside >-->
                     <el-main style=" padding-top:0px; margin-top:-52px">
                         <router-view></router-view>
                     </el-main>
