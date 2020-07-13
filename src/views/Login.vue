@@ -25,7 +25,7 @@
 
 <script>
     export default {
-        name: "Login.vue"
+        name: "Login"
     }
 </script>
 
