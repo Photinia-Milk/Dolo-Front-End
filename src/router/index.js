@@ -1,38 +1,55 @@
 
 import Vue from 'vue'
-
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Login from "../views/Login";
+import Login from "../views/login/Login";
+import TeacherMain from "../views/teacher/TeacherMain";
+import PublishCourse from "../views/teacher/components/publish/PublishCourse";
+import Student from "../views/student/Student";
+import CourseSelect from "../views/student/components/select/CourseSelect";
 
+ //import CourseTable from "../components/CourseTable";
 Vue.use(VueRouter)
-
+ // const ti import(/* webpackChunkName: "timeTable" */ '../components/CourseTable')
   const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-
-    {
-      path:'/',
-      redirect:'/Login'
-    },
-
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
     {
       path: '/',
       name: 'Login',
+      // component: timeTable()
       component: Login
-    }
-];
+    },
+    {
+      path: '/student',
+      name: 'Student',
+      component: Student,
+      children: [
+        {
+          path: '/',
+          redirect: 'course_select'
+        },
+        {
+          path: 'course_select',
+          component: CourseSelect
+        }
+      ]
+    },
+    // {
+    //   path: '/',
+    //   name: 'SelectCourse',
+    //   component: SelectCourse
+    // },
+    {
+      path: '/teacher',
+      name: 'TeacherMain',
+      component: TeacherMain,
+      children: [
+        {
+          path: '/publish',
+          name: 'PublishCourse',
+          component: PublishCourse,
+        }
+      ]
+    },
+]
 
 const router = new VueRouter({
   mode: 'history',
