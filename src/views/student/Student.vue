@@ -1,7 +1,7 @@
 <template>
     <div class="student-container">
-        <el-scrollbar style="height: 100%">
-            <el-container style=" width: 1400px; height:100%;">
+<!--        <el-scrollbar style="height: 100%">-->
+<!--            <el-container style=" width: 1400px; height:100%;">-->
                 <el-header >
                     <NavBarStudent class="header"> </NavBarStudent>
                 </el-header>
@@ -13,8 +13,8 @@
                 <el-footer>
                     <div class="footer-spacer"></div>
                 </el-footer>
-            </el-container>
-        </el-scrollbar>
+<!--            </el-container>-->
+<!--        </el-scrollbar>-->
     </div>
 </template>
 

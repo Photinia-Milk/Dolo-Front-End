@@ -5,7 +5,10 @@ import Login from "../views/login/Login";
 import TeacherMain from "../views/teacher/TeacherMain";
 import PublishCourse from "../views/teacher/components/publish/PublishCourse";
 import Student from "../views/student/Student";
-import CourseSelect from "../views/student/components/select/CourseSelect";
+import Login2 from "../views/login/Login2";
+import home from "../views/student/components/home/home";
+import courseSelect from "../views/student/components/CourseSelect/courseSelect";
+import courseTable from "../views/student/components/courseTable/courseTable";
 
  //import CourseTable from "../components/CourseTable";
 Vue.use(VueRouter)
@@ -18,17 +21,30 @@ Vue.use(VueRouter)
       component: Login
     },
     {
+      path:'/Login2',
+      name:'Login2',
+      component:Login2
+    },
+    {
       path: '/student',
       name: 'Student',
       component: Student,
       children: [
         {
           path: '/',
-          redirect: 'course_select'
+          redirect: 'home'
         },
         {
-          path: 'course_select',
-          component: CourseSelect
+          path: 'home',
+          component: home
+        },
+        {
+          path: 'courseSelect',
+          component: courseSelect
+        },
+        {
+          path: 'courseTable',
+          component: courseTable
         }
       ]
     },
