@@ -1,9 +1,9 @@
 <template>
     <div class="navContainer" >
         <div class = "navRoot" >
-            <!--img  src="@/assets/icons/book-icon.png"
+            <img  src="@/assets/logo.png"
                   alt=""
-                  class="bookIcon"/-->
+                  class="bookIcon"/>
             <div class="studentNameDiv" >
                 <p class="name">{{name}}</p>
             </div>

@@ -23,13 +23,13 @@
                 </el-submenu>
                 <el-submenu index="2">
                     <template slot="title">选课与退选</template>
-                    <el-menu-item index="course_select">自主选课</el-menu-item>
+                    <el-menu-item index="courseSelect">自主选课</el-menu-item>
                     <el-menu-item index="undevelop">推荐课表选课(开发中)</el-menu-item>
                     <el-menu-item index="undevelop">重修选课(开发中)</el-menu-item>
                 </el-submenu>
                 <el-submenu index="3">
                     <template slot="title">信息查询</template>
-                    <el-menu-item index="course_list">学生课表查询(开发中)</el-menu-item>
+                    <el-menu-item index="courseTable">学生课表查询</el-menu-item>
                     <el-menu-item index="gpa">GPA/学积分查询(开发中)</el-menu-item>
                 </el-submenu>
                 <el-submenu index="4">

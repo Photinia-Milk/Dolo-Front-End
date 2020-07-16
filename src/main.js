@@ -1,10 +1,17 @@
 import Vue from 'vue'
+
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from './config/axios'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import { BootstrapVue,IconsPlugin } from 'bootstrap-vue'
+
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 
 Vue.prototype.$axios = axios;
 // import VueTuicalendar from '@lkmadushan/vue-tuicalendar'
@@ -14,7 +21,7 @@ Vue.prototype.$axios = axios;
 // Vue.use(VueTuicalendar);
 
 Vue.use(ElementUI);
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 //设置cookie,增加到vue实例方便全局调用
 //vue全局调用的理由是，有些组件所用到的接口可能需要session验证，session从cookie获取
@@ -41,4 +48,4 @@ new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');

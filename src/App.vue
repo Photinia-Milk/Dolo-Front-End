@@ -1,9 +1,10 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/"></router-link>
+<!--    这里不再使用id=nav-->
+    <div>
+<!--      <router-link to="/"></router-link>-->
+      <router-view/>
     </div>
-    <router-view/>
   </div>
 </template>
 

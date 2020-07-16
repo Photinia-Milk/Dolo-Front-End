@@ -1,140 +1,237 @@
 <template>
-    <div class="container">
-        <el-form>
-            <el-container style = "margin-left:10px;" class="detail-desc">
-                <el-card class="box-card">
-                    <el-form
-                            ref="bookInfo"
-                            label-width="100px"
-                            :model="bookInfo"
-                            style="margin-right: 30px; margin-top:20px"
-                            :rules="rules">
-                        <el-form-item label="课程名称" prop="name" >
-                            <el-input v-model="bookInfo.name" placeholder="请输入书名"></el-input>
-                        </el-form-item>
-                        <el-form-item label="课程编号" prop="writer" >
-                            <el-input v-model="bookInfo.writer" placeholder="请输入作者名"></el-input>
-                        </el-form-item>
-                        <el-form-item label="授课教师" prop="publisher" >
-                            <el-input v-model="bookInfo.publisher" placeholder="请输入出版商名"></el-input>
-                        </el-form-item>
-                        <el-form-item label="最大人数" prop="isbn" >
-                            <el-input v-model="bookInfo.isbn" placeholder="请输入书籍ISBN" ></el-input>
-                        </el-form-item>
-                        <el-form-item label="时间段选择" prop="date" >
-                            <div>
-                                <el-dropdown>
-                                    <span class="el-dropdown-link">
-                                         下拉菜单<i class="el-icon-arrow-down el-icon--right"></i>
-                                    </span>
-                                    <el-dropdown-menu slot="dropdown">
-                                        <el-dropdown-item>周一</el-dropdown-item>
-                                        <el-dropdown-item>周二</el-dropdown-item>
-                                        <el-dropdown-item>周三</el-dropdown-item>
-                                        <el-dropdown-item>周四</el-dropdown-item>
-                                        <el-dropdown-item>周五</el-dropdown-item>
-                                        <el-dropdown-item>周六</el-dropdown-item>
-                                        <el-dropdown-item>周日</el-dropdown-item>
-                                    </el-dropdown-menu>
-                                </el-dropdown>
-                            </div>
-                        </el-form-item>
-                        <el-form-item label="库存" prop="inventory" >
-                            <el-input v-model="bookInfo.inventory" placeholder="请输入库存" ></el-input>
-                        </el-form-item>
-                        <el-form-item label="价格" prop="price" >
-                            <el-input v-model="bookInfo.price"  placeholder="请输入书籍价格（您的输入会自动格式化到小数点后两位）"></el-input>
-                        </el-form-item>
-                        <el-form-item  style="margin-top:20px;">
-                            <span class="detail-bottom-area" v-if="!(bookInfo.id == null || bookInfo.id == '')">
-                                <el-button round
-                                           type="success"
-                                           icon="el-icon-check"
-                                ><span style="letter-spacing: 1px;"> 确认修改</span></el-button>
-                                <el-button round
-                                           type="warning"
-                                           icon="el-icon-d-arrow-left"
-                                ><span style="letter-spacing: 1px;"> 取消修改</span></el-button>
-                            </span>
-                            <span class="detail-bottom-area" v-else>
-                                <el-button round
-                                           type="success"
-                                           icon="el-icon-check"
-                                ><span style="letter-spacing: 1px;"> 确认上传</span></el-button>
-                                <el-button round
-                                           type="warning"
-                                           icon="el-icon-d-arrow-left"
-                                ><span style="letter-spacing: 1px;"> 取消上传</span></el-button>
-                            </span>
-                        </el-form-item>
-                    </el-form>
-                </el-card>
+    <div id="manageCourse">
+        <h1>添加课程</h1>
+        <div class="main">
+            <div class="title">填写课程信息：</div>
+            <hr>
+            <el-form :model="form" ref="form" :rules="rules" label-position="top">
+                <el-form-item label="课程编号" prop="courseID">
+                    <el-input v-model="form.courseID" placeholder="请填写该课程的编号"></el-input>
+                </el-form-item>
+                <el-form-item label="课程名称" prop="courseName">
+                    <el-input v-model="form.courseName" placeholder="请填写该课程的名称"></el-input>
+                </el-form-item>
+                <el-form-item label="课程简介" prop="courseDes">
+                    <el-input v-model="form.courseDes" placeholder="请填写该课程的简介"></el-input>
+                </el-form-item>
+                <el-form-item label="上课教室" prop="classroom">
+                    <el-input v-model="form.classroom" placeholder="请填写该课程上课地点"></el-input>
+                </el-form-item>
+                <el-col :span="8"></el-col><el-form-item label="学分" prop="credit">
+                <el-input-number v-model="form.credit" @change="handleChange" :step="1" :min="1" :max="5"></el-input-number>
+            </el-form-item>
 
-                <div class="detail-spacer"></div>
+                <el-row>
+                    <el-col :span="8">
+                        <el-form-item label="课程教授年级" prop="semester">
+                            <el-select v-model="form.semester" placeholder="请选择">
+                                <el-option
+                                        v-for="item in semester"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.label"
+                                ></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
 
-            </el-container>
-        </el-form>
+                    <el-col :span="8">
+                        <el-form-item label="课程院系" prop="department">
+                            <el-select v-model="form.departmentName" placeholder="请选择">
+                                <el-option
+                                        v-for="item in department"
+                                        :key="item.departmentID"
+                                        :label="item.departmentName"
+                                        :value="item.departmentID"
+                                ></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+
+                    <el-col :span="8">
+                        <!--<el-form-item label="类型" prop="departmentName">-->
+                        <!--<el-select v-model="form.departmentName" placeholder="请选择">-->
+                        <!--<el-option label="必修" value="1"></el-option>-->
+                        <!--<el-option label="选修" value="0"></el-option>-->
+                        <!--</el-select>-->
+                        <!--</el-form-item>-->
+                        <el-form-item label="总量" prop="capacity">
+                            <el-input-number v-model="form.capacity" @change="handleChange" :min="1" :max="80"></el-input-number>
+                        </el-form-item>
+                    </el-col>
+
+                    <el-button
+                            type="success"
+                            round
+                            icon="el-icon-circle-plus"
+                            style="margin-top: 20px"
+                            @click="submit"
+                    >添加课程</el-button>
+                </el-row>
+            </el-form>
+        </div>
     </div>
 </template>
 
-
 <script>
-export default {
-    name: 'PublishCourse',
-    data() {
-        return {
-            bookInfo:{
-
+    export default {
+        data() {
+            return {
+                form: {
+                    courseName: "",
+                    departmentName:"",
+                    courseDes: "",
+                    credit: "",
+                    semester: "",
+                    departmentID: "",
+                    teacherID: this.$store.state.teacherID,
+                    capacity: ""
+                },
+                semester: [
+                    {
+                        value: 1,
+                        label: "大一上学期"
+                    },
+                    {
+                        value: 2,
+                        label: "大一下学期"
+                    },
+                    {
+                        value: 3,
+                        label: "大二上学期"
+                    },
+                    {
+                        value: 4,
+                        label: "大二下学期"
+                    },
+                    {
+                        value: 5,
+                        label: "大三上学期"
+                    },
+                    {
+                        value: 6,
+                        label: "大三下学期"
+                    },
+                    {
+                        value: 7,
+                        label: "大四上学期"
+                    },
+                    {
+                        value: 8,
+                        label: "大四下学期"
+                    }
+                ],
+                department: [],//[{"departmentName":"计算机科学系","departmentID":"CS"}],
+                rules: {
+                    courseName: [
+                        {
+                            required: true,
+                            message: "请输入课程名称",
+                            trigger: ["blur", "choose"]
+                        }
+                    ],
+                    courseDes: [    
+                        {
+                            require:true,
+                            message: "请输入课程简介",
+                            trigger: ["blur", "choose"]
+                        }
+                    ],
+                    credit: [
+                        { required: true, message: "请输入学分", trigger: ["blur", "choose"] }
+                    ],
+                    semester: [
+                        { required: true, message: "请选择", trigger: ["blur", "choose"] }
+                    ],
+                    departmentID: [
+                        { required: true, message: "请选择", trigger: ["blur", "choose"] }
+                    ],
+                    capacity:[
+                        { required: true, message: "请选择", trigger: ["blur", "choose"] }
+                    ]
+                }
+            };
+        },
+        methods: {
+            handleChange(value) {
+                console.log(value);
             },
-            bookInfo2:{
-                "description": "",
-                "writerInfo" : "",
+            submit() {
+                this.$refs.form.validate(valid => {
+                    if (valid) {
+                        this.$confirm("您确定要执行此操作吗?", "提示", {
+                            confirmButtonText: "确定",
+                            cancelButtonText: "取消",
+                            type: "warning"
+                        })
+                            .then(() => {
+                                this.addCourse();
+                            })
+                            .catch(() => {
+                                this.$message({
+                                    type: "info",
+                                    message: "操作已取消"
+                                });
+                            });
+                    } else {
+                        return false;
+                    }
+                });
             },
-            bookImg: [],
-            num: 1,
-            activeName: 'book description',
-            dialogImageUrl: '',
-            dialogVisible: false,
-            urlIdx: 0,
-            realImgs:[],
-            rules :{
-                name: [
-                    { required: true, message: '请输入书名', trigger: 'blur' },
-                    { min: 1, max: 44, message: '长度在 4 到 44 个字符', trigger: 'blur' }
-                ],
-                writer:[
-                    { required: true, message: '请输入作者名', trigger: 'blur' },
-                    { min: 1, max: 44, message: '长度在 4 到 44 个字符', trigger: 'blur' }
-                ],
-                publisher:[
-                    { required: true, message: '请输入出版社名', trigger: 'blur' },
-                    { min: 1, max: 44, message: '长度在 4 到 44 个字符', trigger: 'blur' }
-                ],
-                isbn:[
-                    { required: true, message: '请输入ISBN', trigger: 'blur' },
-                    { type: 'number', message: '您的输入含非法字符'},
-                ],
-                date:[
-                    { required: true, message: '请选择出版日期', trigger: 'change' }
-                ],
-                inventory:[
-                    { required: true, message: '请输入剩余库存', trigger: 'blur' },
-                    { type: 'number', message: '您的输入含非法字符'},
-                ],
-                price:[
-                    { required: true, message: '请输入出售价格', trigger: 'blur' },
-                    { type: 'number', message: '该输入将格式化到小数点后两位'},
-                ],
-                description:[
-                    { required: true, message: '请输入内容简介', trigger: 'blur' },
-                    { min: 6, max: 500, message: '长度应为 6 到 500 个字符', trigger: 'blur' }
-                ],
-                writerInfo:[
-                    { required: true, message: '请输入作者简介', trigger: 'blur' },
-                    { min: 6, max: 500, message: '长度应为 6 到 500 个字符', trigger: 'blur' }
-                ],
+            addCourse() {
+                let obj = this.form;
+                obj.departmentID = this.form.departmentName;
+                obj.semester = this.form.semester;
+                obj.courseName = this.form.courseName;
+                obj.courseID = this.form.courseID;
+                obj.courseDes = this.form.courseDes;
+                obj.classroom = this.form.classroom;
+                obj.credit = this.form.credit;
+                obj.capacity = this.form.capacity;
+                obj.teacherID = this.form.teacherID;
+                console.log(obj);
+                this.axios
+                    .post("/addCourse", obj)
+                    .then(res => {
+                        if (res.data.code == 1) {
+                            this.$message.success("添加成功，请选择上课时间");
+                            this.$refs.form.resetFields();
+                            this.$router.push("/teacher/addClass");
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        this.$message("服务器无法连接，添加课程失败");
+                    });
+            },
+            getDepartment() {
+                this.axios
+                    .get("/getDepartment")
+                    .then(res => {
+                        if (res.data.code == 1) {
+                            this.department = res.data.data;
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        this.$message("服务器无法连接，无法获取院系列表");
+                    });
             }
+        },
+        mounted() {
+            this.getDepartment();
+        }
+    };
+</script>
+
+<style lang='scss' scoped>
+    .main {
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+        .el-select {
+            width: 90%;
         }
     }
-}
-</script>
+</style>
