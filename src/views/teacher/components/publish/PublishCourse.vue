@@ -18,7 +18,7 @@
                     <el-input v-model="form.classroom" placeholder="请填写该课程上课地点"></el-input>
                 </el-form-item>
                 <el-col :span="8"></el-col><el-form-item label="学分" prop="credit">
-                <el-input-number v-model="form.credit" @change="handleChange" :step="1" :min="1" :max="5"></el-input-number>
+                <el-input-number v-model="form.credit" @change="handleChange" :step="1" :min="1" :max="6"></el-input-number>
             </el-form-item>
 
                 <el-row>
@@ -55,8 +55,8 @@
                         <!--<el-option label="选修" value="0"></el-option>-->
                         <!--</el-select>-->
                         <!--</el-form-item>-->
-                        <el-form-item label="总量" prop="capacity">
-                            <el-input-number v-model="form.capacity" @change="handleChange" :min="1" :max="80"></el-input-number>
+                        <el-form-item label="总人数" prop="capacity">
+                            <el-input-number v-model="form.capacity" @change="handleChange" :min="1" :max="200"></el-input-number>
                         </el-form-item>
                     </el-col>
 
@@ -123,6 +123,13 @@
                 ],
                 department: [],//[{"departmentName":"计算机科学系","departmentID":"CS"}],
                 rules: {
+                    courseID:[
+                {
+                    required: true,
+                    message: "请输入课程编号",
+                    trigger: ["blur", "choose"]
+                }
+            ],
                     courseName: [
                         {
                             required: true,
@@ -130,10 +137,17 @@
                             trigger: ["blur", "choose"]
                         }
                     ],
-                    courseDes: [    
+                    courseDes: [
                         {
-                            require:true,
+                            required: true,
                             message: "请输入课程简介",
+                            trigger: ["blur", "choose"]
+                        }
+                    ],
+                    classroom:[
+                        {
+                            required: true,
+                            message: "请输入上课地点",
                             trigger: ["blur", "choose"]
                         }
                     ],

@@ -13,8 +13,9 @@ export const login = params => {
 //----------------------------------[选课页用]----------------------------------
 
 //获取课程表
-export const getKB = () => {
-  return axios.get(`${local_host}/kb/`);
+export const getAllCourse = param => {
+  console.log(param);
+  return axios.get(`${local_host}/api/student/course_valid`,{params:param});
 };
 
 //删除自己选的课程,提供select_course表的id

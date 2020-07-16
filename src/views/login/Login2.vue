@@ -54,11 +54,14 @@
         },
         methods:{
             tologin(){
-                console.log(this.user);
                 login(this.user).then(res=>{
-                    if(res.status===200){
+                    if(res.data.status==0){
                         this.$message.success('登陆成功！');
-                        // console.log(res);
+                        this.$router.push('/student');
+                        console.log(res);
+                    }
+                    else if(res.data.status==1){
+                        this.$message.error('用户名或密码错误！')
                     }
                 }).catch(()=>{
                     this.$message.error('网络繁忙，请稍后重试！')

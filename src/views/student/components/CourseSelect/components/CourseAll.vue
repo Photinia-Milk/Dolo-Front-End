@@ -110,10 +110,14 @@
 </template>
 <script>
     import qs from "qs";
+    import {getAllCourse} from "../../../../../api/api";
+
     export default {
         name: "course",
         data() {
             return {
+                pageInfo:{startIndex:1,pageSize:10},
+                userList: [],
                 category1:['民族生课程','必修课程','通识课','选修课'],
                 checkboxGroup:[],
                 name: "亚托克斯",
@@ -227,6 +231,19 @@
                         });
                     });
             },
+            handleSizeChange: function (size) {
+                this.pagesize = size;
+                console.log(this.pagesize)  //每页下拉显示数据
+            },
+            handleCurrentChange: function(currentPage){
+                this.currentPage = currentPage;
+                console.log(this.currentPage)  //点击第几页
+            },
+            handleUserList() {
+                this.$http.get('http://localhost:3000/userList').then(res => {  //这是从本地请求的数据接口，
+                    this.userList = res.body
+                })
+            },
 
             handleClick(row) {
                 // 数据回显
@@ -286,20 +303,14 @@
             },
             // 获取全部的课程数据
             getAllcourses() {
-                this.$axios.get("http://localhost:8004/Courses").then(result => {
-                    if (result.status == 200) {
-                        // console.log(result);
-                        this.coursesData = result.data;
-                        this.coursesData.forEach(item => {
-                            console.log(item.Id);
-                            if (item.Introduction == null) {
-                                item.Introduction == "欧尼酱";
-                            }
-                            // item.Introduction==null ? "0" : item.Introduction
-                        });
-                        this.loading = false;
+                getAllCourse(this.pageInfo).then(res=>{
+                    if(res.status==200)
+                    {
+                        this.$message.success('返回成功！')
                     }
-                });
+                }).catch(()=>{
+                    this.$message.error('网络异常，请稍后重试')
+                })
             }
         },
         mounted() {
