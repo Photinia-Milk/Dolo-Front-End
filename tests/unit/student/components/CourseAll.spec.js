@@ -1,5 +1,5 @@
 import { shallowMount, createLocalVue, mount } from "@vue/test-utils";
-import Calculator from "@/components/Calculator.vue";
+import course from "@/views/student/components/CourseSelect/components/CourseAll.vue";
 import ElementUI from "element-ui";
 
 const localVue = createLocalVue();
