@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue, mount } from "@vue/test-utils";
+import { shallowMount, createLocalVue } from "@vue/test-utils";
 import ElementUI from "element-ui";
 import NavBarTeacher from "../../../../src/views/teacher/components/navbar/NavBarTeacher";
 

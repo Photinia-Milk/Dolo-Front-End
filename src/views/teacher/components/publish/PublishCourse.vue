@@ -84,7 +84,8 @@
                     credit: "",
                     semester: "",
                     departmentID: "",
-                    teacherID: this.$store.state.teacherID,
+                    // teacherID: this.$store.state.teacherID,
+                    teacherID:"",
                     capacity: ""
                 },
                 semester: [
