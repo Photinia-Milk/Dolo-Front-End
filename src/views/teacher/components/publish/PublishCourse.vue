@@ -130,9 +130,9 @@
                             trigger: ["blur", "choose"]
                         }
                     ],
-                    courseDes: [
+                    courseDes: [    
                         {
-                            required: false,
+                            require:true,
                             message: "请输入课程简介",
                             trigger: ["blur", "choose"]
                         }
