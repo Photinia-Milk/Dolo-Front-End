@@ -30,6 +30,7 @@
     "@vue/cli-plugin-router": "~4.4.0",
     "@vue/cli-plugin-vuex": "~4.4.0",
     "@vue/cli-service": "~4.4.0",
+    "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.1.0",
     "bootstrap": "^4.5.0",
     "eslint": "^6.7.2",
@@ -56,23 +57,47 @@
     "rules": {}
   },
   "jest": {
-  "moduleFileExtensions": [
-    "js",
-    "json",
-    "vue"
-  ],
-  "transform": {
-    ".*\\.(vue)$": "vue-jest"
-  },
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "vue-jest"
+    },
     "collectCoverage": true,
-    "collectCoverageFrom": ["**/*.{js,vue}", "!**/node_modules/**"],
-    "coverageReporters": ["html", "text-summary"],
-    "snapshotSerializers": ["jest-serializer-vue"]
-},
-  "presets": [["env", { "modules": false }]],
+    "collectCoverageFrom": [
+      "**/*.{js,vue}",
+      "!**/node_modules/**"
+    ],
+    "coverageReporters": [
+      "html",
+      "text-summary"
+    ],
+    "snapshotSerializers": [
+      "jest-serializer-vue"
+    ]
+  },
+  "presets": [
+    [
+      "env",
+      {
+        "modules": false
+      }
+    ]
+  ],
   "env": {
     "test": {
-      "presets": [["env", { "targets": { "node": "current" } }]]
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "node": "current"
+            }
+          }
+        ]
+      ]
     }
   },
   "browserslist": [
