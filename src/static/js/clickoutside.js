@@ -1,5 +1,5 @@
 export default {
-    bind (el, binding, vnode) {
+    bind (el, binding) {
         function documentHandler (e) {
             if (el.contains(e.target)) {
                 return false;
@@ -14,7 +14,7 @@ export default {
     update () {
 
     },
-    unbind (el, binding) {
+    unbind (el) {
         document.removeEventListener('click', el.__vueClickOutside__);
         delete el.__vueClickOutside__;
     }

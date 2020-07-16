@@ -1,52 +1,49 @@
-// import { shallowMount, createLocalVue, mount } from "@vue/test-utils";
-// import ElementUI from "element-ui";
-//
-// const localVue = createLocalVue();
-// localVue.use(ElementUI);
-//
-// /**
-//  * mock的axios
-//  * 可以根据需要添加其他函数功能
-//  */
-// const axios = {
-//     get: async () => "success"
-// };
 
-// /**
-//  * 检查初始化状态的测试用例
-//  * 对组件内部状态的访问
-//  */
-// describe("init", () => {
-//     it("init state", () => {
-//         const msg = "new message";
-//         const wrapper = shallowMount(Calculator, {
-//             propsData: { msg },
-//             mocks: {
-//                 axios
-//             },
-//             localVue
-//         });
-//         /**
-//          * 检查props是否正确传入
-//          */
-//         expect(wrapper.vm.msg).toEqual(msg);
-//         /**
-//          * 检查data的初始状态
-//          */
-//         expect(wrapper.vm.results).toEqual([]);
-//         expect(wrapper.vm.calculateText).toEqual("");
-//         /**
-//          * 检查结果表格的初始状态
-//          */
-//         expect(wrapper.find(".success").exists()).toBe(false);
-//         expect(wrapper.find(".error").exists()).toBe(false);
-//         /**
-//          * 检查axios是否正确mock
-//          */
-//         expect(wrapper.vm.axios.get()).resolves.toEqual("success");
-//     });
-// });
-//
+import { shallowMount, createLocalVue, mount } from "@vue/test-utils";
+import Login2 from "../../src/views/login/Login2";
+import ElementUI from "element-ui";
+
+const localVue = createLocalVue();
+localVue.use(ElementUI);
+
+/**
+ * mock的axios
+ * 可以根据需要添加其他函数功能
+ */
+const axios = {
+    get: async () => "success"
+};
+
+/**
+ * 检查初始化状态的测试用例
+ * 对组件内部状态的访问
+ */
+describe("init", () => {
+    it("init state", () => {
+        const msg = "new message";
+        const wrapper = shallowMount(Login2, {
+            mocks: {
+                axios
+            },
+            localVue
+        });
+        /**
+         * 检查data的初始状态
+         */
+        expect(wrapper.vm.user.password).toEqual('');
+        expect(wrapper.vm.user.username).toEqual('');
+        /**
+         * 检查结果表格的初始状态
+         */
+        expect(wrapper.find(".success").exists()).toBe(false);
+        expect(wrapper.find(".error").exists()).toBe(false);
+        /**
+         * 检查axios是否正确mock
+         */
+        expect(wrapper.vm.axios.get()).resolves.toEqual("success");
+    });
+});
+
 // /**
 //  * 对DOM的控制
 //  */
@@ -107,7 +104,6 @@
 //         expect(wrapper.find(".error").exists()).toBe(true);
 //     });
 // });
-//
 //
 // /**
 //  * 异步和mock
