@@ -63,8 +63,18 @@
   ],
   "transform": {
     ".*\\.(vue)$": "vue-jest"
-  }
+  },
+    "collectCoverage": true,
+    "collectCoverageFrom": ["**/*.{js,vue}", "!**/node_modules/**"],
+    "coverageReporters": ["html", "text-summary"],
+    "snapshotSerializers": ["jest-serializer-vue"]
 },
+  "presets": [["env", { "modules": false }]],
+  "env": {
+    "test": {
+      "presets": [["env", { "targets": { "node": "current" } }]]
+    }
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
