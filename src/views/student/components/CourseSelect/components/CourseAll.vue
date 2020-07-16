@@ -109,7 +109,6 @@
     </div>
 </template>
 <script>
-    //import qs from "qs";
     import {getAllCourse} from "../../../../../api/api";
 
     export default {

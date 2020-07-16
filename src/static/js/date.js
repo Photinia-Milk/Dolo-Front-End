@@ -21,7 +21,7 @@ export function formatDate(date, fmt) {
         }
     }
     return fmt;
-};
+}
 
 
 function padLeftZero(str) {
