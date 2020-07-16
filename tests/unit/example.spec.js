@@ -1,1 +1,1 @@
-import {shallowMount} from "@vue/test-utils";
+import {shallowMount,createLocalVue,mount} from "@vue/test-utils";
