@@ -125,12 +125,12 @@
                 department: [],//[{"departmentName":"计算机科学系","departmentID":"CS"}],
                 rules: {
                     courseID:[
-                {
-                    required: true,
-                    message: "请输入课程编号",
-                    trigger: ["blur", "choose"]
-                }
-            ],
+                        {
+                            required: true,
+                            message: "请输入课程编号",
+                            trigger: ["blur", "choose"]
+                        }
+                    ],
                     courseName: [
                         {
                             required: true,
