@@ -293,13 +293,13 @@
                 });
             },
 
-            // 查验简介是否为空
-            checkNull(row) {
-                // console.log(row)
-                return row.description == null
-                    ? "该课程暂无介绍信息 ￣□￣｜｜"
-                    : row.description;
-            },
+            // // 查验简介是否为空
+            // checkNull(row) {
+            //     // console.log(row)
+            //     return row.description == null
+            //         ? "该课程暂无介绍信息 ￣□￣｜｜"
+            //         : row.description;
+            // },
             // 获取全部的课程数据
             getAllcourses() {
                 getAllCourse(this.pageInfo).then(res=>{
