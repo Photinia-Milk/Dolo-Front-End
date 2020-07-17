@@ -1,6 +1,7 @@
 
-import { shallowMount, createLocalVue, mount } from "@vue/test-utils";
-import Login2 from "../../src/views/login/Login2";
+import { createLocalVue, mount } from "@vue/test-utils";
+import Login2 from "../../../src/views/login/Login2";
+import login from "../../../src/api/api"
 import ElementUI from "element-ui";
 
 const localVue = createLocalVue();
@@ -10,9 +11,18 @@ localVue.use(ElementUI);
  * mock的axios
  * 可以根据需要添加其他函数功能
  */
-const axios = {
-    get: async () => "success"
+const $axios = {
+    get: async () => "get success",
+    post:async()=>"post success",
+    login :async ()=>"login success"
 };
+
+const wrapper = mount(Login2, {
+    mocks: {
+        $axios
+    },
+    localVue
+});
 
 /**
  * 检查初始化状态的测试用例
@@ -20,13 +30,7 @@ const axios = {
  */
 describe("init", () => {
     it("init state", () => {
-        const msg = "new message";
-        const wrapper = shallowMount(Login2, {
-            mocks: {
-                axios
-            },
-            localVue
-        });
+
         /**
          * 检查data的初始状态
          */
@@ -35,13 +39,26 @@ describe("init", () => {
         /**
          * 检查结果表格的初始状态
          */
-        expect(wrapper.find(".success").exists()).toBe(false);
-        expect(wrapper.find(".error").exists()).toBe(false);
+
         /**
          * 检查axios是否正确mock
          */
-        expect(wrapper.vm.axios.get()).resolves.toEqual("success");
+        expect(wrapper.vm.$axios.get()).resolves.toEqual("get success")
+        expect(wrapper.vm.$axios.post()).resolves.toEqual("post success")
     });
+});
+
+describe("login",()=>{
+    it("(async login)login",async ()=>{
+    expect(wrapper.vm.tologin()).resolves.toBe("post success")
+    });
+
+    it("login through button",async()=>{
+        const but=wrapper.find(".btn-primary");
+        expect(but.exists()).toBeTruthy();
+        but.trigger("click");
+
+    })
 });
 
 // /**
