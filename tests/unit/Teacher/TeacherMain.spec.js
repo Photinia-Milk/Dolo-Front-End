@@ -13,5 +13,6 @@
 describe("TeacherMain", () => {
     // 由于没有数据和方法，这里可以不做测试
     it("all clear", () => {
+
     });
 });
