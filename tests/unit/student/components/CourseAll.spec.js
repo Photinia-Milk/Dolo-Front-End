@@ -1,6 +1,7 @@
-import { shallowMount, createLocalVue } from "@vue/test-utils";
+import { shallowMount, createLocalVue} from "@vue/test-utils";
+import course from "../../../../src/views/student/components/CourseSelect/components/CourseAll";
 import ElementUI from "element-ui";
-import PublishCourse from "../../../../src/views/teacher/components/publish/PublishCourse";
+
 
 const localVue = createLocalVue();
 localVue.use(ElementUI);
@@ -13,122 +14,91 @@ const axios = {
     get: async () => "success"
 };
 
-const wrapper = shallowMount(PublishCourse, {
+const wrapper = shallowMount(course, {
     mocks: {
         axios
     },
     localVue
 });
-
 /**
  * 检查初始化状态的测试用例
  * 对组件内部状态的访问
  */
-describe("PublishCourse", () => {
-    // 检查原始组件中的初始数据和函数
-    it("sets the correct default data", () => {
-        let formInit = {
-            courseName: "",
-            departmentName:"",
-            courseDes: "",
-            credit: "",
-            semester: "",
-            departmentID: "",
-            teacherID: "",
-            capacity: ""
+describe("course", () => {
+    it("init state", () => {
+        /**
+         * 检查props是否正确传入
+         */
+        // expect(wrapper.vm.msg).toEqual(msg);
+        /**
+         * 检查data的初始状态
+         */
+        // expect(wrapper.vm.results).toEqual([]);
+        // expect(wrapper.vm.calculateText).toEqual("");
+        expect(typeof course.data).toBe('function');
+        //const defaultData = course.data();
+        let pageInfoInit = {
+            startIndex: 1,
+            pageSize:10
         }
-        let semesterInit = [
-            {
-                value: 1,
-                label: "大一上学期"
-            },
-            {
-                value: 2,
-                label: "大一下学期"
-            },
-            {
-                value: 3,
-                label: "大二上学期"
-            },
-            {
-                value: 4,
-                label: "大二下学期"
-            },
-            {
-                value: 5,
-                label: "大三上学期"
-            },
-            {
-                value: 6,
-                label: "大三下学期"
-            },
-            {
-                value: 7,
-                label: "大四上学期"
-            },
-            {
-                value: 8,
-                label: "大四下学期"
-            }
-        ]
+        let category1Init = ['民族生课程','必修课程','通识课','选修课'];
+        let ruleFormInit = {
+            Title: "",
+            Number: "",
+            Introduction: ""
+        }
+        let updateFormInit = {
+            Id: "",
+            Title: "",
+            Introduction: ""
+        }
         let rulesInit = {
-            courseID:[
+            Title: [
+                { required: true, message: "请输入课程名", trigger: "change" },
+                { min: 2, max: 10, message: "长度在 2到 10 个字符", trigger: "blur" }
+            ],
+            Introduction: [
                 {
                     required: true,
-                    message: "请输入课程编号",
-                    trigger: ["blur", "choose"]
+                    message: "请填写课程信息,否则无法通过喔~",
+                    trigger: "change"
                 }
-            ],
-            courseName: [
-                {
-                    required: true,
-                    message: "请输入课程名称",
-                    trigger: ["blur", "choose"]
-                }
-            ],
-            courseDes: [
-                {
-                    required: true,
-                    message: "请输入课程简介",
-                    trigger: ["blur", "choose"]
-                }
-            ],
-            classroom:[
-                {
-                    required: true,
-                    message: "请输入上课地点",
-                    trigger: ["blur", "choose"]
-                }
-            ],
-            credit: [
-                { required: true, message: "请输入学分", trigger: ["blur", "choose"] }
-            ],
-            semester: [
-                { required: true, message: "请选择", trigger: ["blur", "choose"] }
-            ],
-            departmentID: [
-                { required: true, message: "请选择", trigger: ["blur", "choose"] }
-            ],
-            capacity:[
-                { required: true, message: "请选择", trigger: ["blur", "choose"] }
             ]
         }
-        expect(wrapper.vm.form).toEqual(formInit);
-        expect(wrapper. vm.semester).toEqual(semesterInit);
-        expect(wrapper.vm.department).toEqual([]);
+        expect(wrapper.vm.pageInfo).toEqual(pageInfoInit);
+        expect(wrapper.vm.userList).toEqual([]);
+        expect(wrapper.vm.category1).toEqual(category1Init);
+        expect(wrapper.vm.checkboxGroup).toEqual([]);
+        expect(wrapper.vm.name).toEqual("亚托克斯");
+        expect(wrapper.vm.searchName).toEqual("");
+        expect(wrapper.vm.coursesData).toEqual([]);
+        expect(wrapper.vm.loading).toBe(true);
+        expect(wrapper.vm.ruleForm).toEqual(ruleFormInit);
+        expect(wrapper.vm.updateForm).toEqual(updateFormInit);
         expect(wrapper.vm.rules).toEqual(rulesInit);
+        expect(wrapper.vm.dialogFormVisible).toBe(false);
+        expect(wrapper.vm.formLabelWidth).toEqual("6em");
+        /**
+         * 检查结果表格的初始状态
+         */
+        // expect(wrapper.find(".success").exists()).toBe(false);
+        // expect(wrapper.find(".error").exists()).toBe(false);
+        /**
+         * 检查axios是否正确mock
+         */
+        // expect(wrapper.vm.axios.get()).resolves.toEqual("success");
     });
 });
-//
-// /**
-//  * 对DOM的控制
-//  */
-// describe("PublishCourse", () => {
+
+/**
+ * 对DOM的控制
+ */
+// describe("calculator", () => {
 //     const msg = "new message";
 //     /**
 //      * 如果使用element-ui等第三方组件库，不要使用shallowMount
 //      */
-//     const wrapper = mount(PublishCourse, {
+//     const wrapper = mount(Calculator, {
 //         propsData: { msg },
 //         mocks: {
 //             axios
@@ -181,14 +151,13 @@ describe("PublishCourse", () => {
 //     });
 // });
 //
-//
 // /**
 //  * 异步和mock
 //  */
 // describe("login (async function)", () => {
 //     it("login success by call function", () => {
 //         const msg = "new message";
-//         const wrapper = shallowMount(PublishCourse, {
+//         const wrapper = shallowMount(Calculator, {
 //             propsData: { msg },
 //             mocks: {
 //                 axios
@@ -206,7 +175,7 @@ describe("PublishCourse", () => {
 //         /**
 //          * 如果使用element-ui等第三方组件库，不要使用shallowMount
 //          */
-//         const wrapper = mount(PublishCourse, {
+//         const wrapper = mount(Calculator, {
 //             propsData: { msg },
 //             mocks: {
 //                 axios
