@@ -60,7 +60,7 @@
                 <el-table-column type="index" :index="indexMethod"></el-table-column>
                 <el-table-column prop="courseName" label="课程名" width="150"></el-table-column>
                 <el-table-column prop="currentNum" sortable label="选修人数" width="120"></el-table-column>
-                <el-table-column prop="Introduction" label="课程简介" :formatter="checkNull"></el-table-column>
+                <el-table-column prop="description" label="课程简介" :formatter="checkNull"></el-table-column>
                 <el-table-column fixed="right" label="操作" width="200">
                     <template slot-scope="scope">
                         <el-button @click="handleClick(scope.row)" type="warning" size="small">修改</el-button>
@@ -89,10 +89,10 @@
                     <el-form-item label="课程名" prop="courseName" :label-width="formLabelWidth">
                         <el-input v-model="updateForm.courseName" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="课程简介" prop="Introduction" :label-width="formLabelWidth">
+                    <el-form-item label="课程简介" prop="description" :label-width="formLabelWidth">
                         <el-input
                                 type="textarea"
-                                v-model="updateForm.Introduction"
+                                v-model="updateForm.description"
                                 placeholder="请填写课程信息"
                                 maxlength="50"
                                 :autosize="{ minRows: 4, maxRows: 6}"
@@ -127,13 +127,13 @@
                 ruleForm: {
                     courseName: "",
                     Number: "",
-                    Introduction: ""
+                    description: ""
                 },
                 // 修改时课程信息 表单项设置
                 updateForm: {
                     Id: "",
                     courseName: "",
-                    Introduction: ""
+                    description: ""
                 },
                 // 校验规则
                 rules: {
@@ -141,7 +141,7 @@
                         { required: true, message: "请输入课程名", trigger: "change" },
                         { min: 2, max: 10, message: "长度在 2到 10 个字符", trigger: "blur" }
                     ],
-                    Introduction: [
+                    description: [
                         {
                             required: true,
                             message: "请填写课程信息,否则无法通过喔~",
@@ -161,7 +161,7 @@
                         // 表单验证成功
                         // var strData = {
                         //     courseName: this.ruleForm.courseName,
-                        //     Introduction: this.ruleForm.Introduction
+                        //     description: this.ruleForm.description
                         // };
                         // // 改变post的编码格式，适应后台
                         // this.axios
@@ -249,7 +249,7 @@
                 console.log(row);
                 // this.resetForm(updateForm);
                 this.updateForm.courseName = row.courseName;
-                this.updateForm.Introduction = row.Introduction;
+                this.updateForm.description = row.description;
                 this.updateForm.Id = row.Id;
                 this.dialogFormVisible = true;
             },
@@ -260,7 +260,7 @@
                         // let updateData = {
                         //     Id: this.updateForm.Id,
                         //     courseName: this.updateForm.courseName,
-                        //     Introduction: this.updateForm.Introduction
+                        //     description: this.updateForm.description
                         // };
                         this.dialogFormVisible = false;
                         // //  改变post的编码格式，适应后台  修改！
@@ -296,9 +296,9 @@
             // 查验简介是否为空
             checkNull(row) {
                 // console.log(row)
-                return row.Introduction == null
+                return row.description == null
                     ? "该课程暂无介绍信息 ￣□￣｜｜"
-                    : row.Introduction;
+                    : row.description;
             },
             // 获取全部的课程数据
             getAllcourses() {
