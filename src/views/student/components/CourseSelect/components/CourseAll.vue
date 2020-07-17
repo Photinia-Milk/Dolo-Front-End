@@ -23,7 +23,7 @@
                                     label-width="80px"
                                     class="coursesForm"
                             >
-                                <el-form-item prop="Title">
+                                <el-form-item prop="courseName">
                                     <div style="margin-top: 20px">
                                         <el-radio-group v-model="checkboxGroup"  data-label="课程类别" size="small">
                                             <el-radio-button v-for="cate in category1" :label="cate"  :key="cate">{{cate}}</el-radio-button>
@@ -51,14 +51,14 @@
                     v-loading="loading"
                     element-loading-text="拼命加载中"
                     element-loading-spinner="el-icon-loading"
-                    :data="coursesData.filter(data => !searchName || data.Title.toLowerCase().includes(searchName.toLowerCase()))"
+                    :data="coursesData.filter(data => !searchName || data.courseName.toLowerCase().includes(searchName.toLowerCase()))"
                     border
                     style="width: 100%"
                     min-height="650"
                     max-height="650"
             >
                 <el-table-column type="index" :index="indexMethod"></el-table-column>
-                <el-table-column prop="Title" label="课程名" width="150"></el-table-column>
+                <el-table-column prop="courseName" label="课程名" width="150"></el-table-column>
                 <el-table-column prop="Enrollments.length" sortable label="选修人数" width="120"></el-table-column>
                 <el-table-column prop="Introduction" label="课程简介" :formatter="checkNull"></el-table-column>
                 <el-table-column fixed="right" label="操作" width="200">
@@ -86,8 +86,8 @@
 
             <el-dialog title="课程信息" :visible.sync="dialogFormVisible">
                 <el-form :model="updateForm" class="content" :rules="rules" ref="updateForm">
-                    <el-form-item label="课程名" prop="Title" :label-width="formLabelWidth">
-                        <el-input v-model="updateForm.Title" autocomplete="off"></el-input>
+                    <el-form-item label="课程名" prop="courseName" :label-width="formLabelWidth">
+                        <el-input v-model="updateForm.courseName" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="课程简介" prop="Introduction" :label-width="formLabelWidth">
                         <el-input
@@ -125,19 +125,19 @@
                 loading: true,
                 // 增加课程 表单项设置
                 ruleForm: {
-                    Title: "",
+                    courseName: "",
                     Number: "",
                     Introduction: ""
                 },
                 // 修改时课程信息 表单项设置
                 updateForm: {
                     Id: "",
-                    Title: "",
+                    courseName: "",
                     Introduction: ""
                 },
                 // 校验规则
                 rules: {
-                    Title: [
+                    courseName: [
                         { required: true, message: "请输入课程名", trigger: "change" },
                         { min: 2, max: 10, message: "长度在 2到 10 个字符", trigger: "blur" }
                     ],
@@ -160,7 +160,7 @@
                     if (valid) {
                         // 表单验证成功
                         // var strData = {
-                        //     Title: this.ruleForm.Title,
+                        //     courseName: this.ruleForm.courseName,
                         //     Introduction: this.ruleForm.Introduction
                         // };
                         // // 改变post的编码格式，适应后台
@@ -248,7 +248,7 @@
                 // 数据回显
                 console.log(row);
                 // this.resetForm(updateForm);
-                this.updateForm.Title = row.Title;
+                this.updateForm.courseName = row.courseName;
                 this.updateForm.Introduction = row.Introduction;
                 this.updateForm.Id = row.Id;
                 this.dialogFormVisible = true;
@@ -259,7 +259,7 @@
                     if (valid) {
                         // let updateData = {
                         //     Id: this.updateForm.Id,
-                        //     Title: this.updateForm.Title,
+                        //     courseName: this.updateForm.courseName,
                         //     Introduction: this.updateForm.Introduction
                         // };
                         this.dialogFormVisible = false;
