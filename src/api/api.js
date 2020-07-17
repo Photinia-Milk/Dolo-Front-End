@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //本地测试环境
-let local_host = 'http://localhost:8088';
+let local_host = 'http://localhost:8080';
 
 //----------------------------------[登录用]----------------------------------
 
