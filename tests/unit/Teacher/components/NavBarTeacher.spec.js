@@ -29,8 +29,8 @@ describe("NavBarTeacher", () => {
     // 检查原始组件中的初始数据和函数
     it("sets the correct default data", () => {
         // expect(typeof NavBarTeacher.handleSelect).toBe('function')
-        expect(typeof NavBarTeacher.data).toBe('function')
-        const defaultData = NavBarTeacher.data()
+        expect(typeof NavBarTeacher.data).toBe('function');
+        const defaultData = NavBarTeacher.data();
         expect(defaultData.activeIndex).toEqual('browse');
         expect(defaultData.name).toEqual("Dolo");
     });
