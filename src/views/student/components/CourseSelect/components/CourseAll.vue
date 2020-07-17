@@ -59,7 +59,7 @@
             >
                 <el-table-column type="index" :index="indexMethod"></el-table-column>
                 <el-table-column prop="courseName" label="课程名" width="150"></el-table-column>
-                <el-table-column prop="Enrollments.length" sortable label="选修人数" width="120"></el-table-column>
+                <el-table-column prop="currentNum" sortable label="选修人数" width="120"></el-table-column>
                 <el-table-column prop="Introduction" label="课程简介" :formatter="checkNull"></el-table-column>
                 <el-table-column fixed="right" label="操作" width="200">
                     <template slot-scope="scope">
