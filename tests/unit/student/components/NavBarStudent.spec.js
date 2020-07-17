@@ -1,6 +1,6 @@
 import { shallowMount, createLocalVue } from "@vue/test-utils";
 import ElementUI from "element-ui";
-import NavBarTeacher from "../../../../src/views/teacher/components/navbar/NavBarTeacher";
+import NavBarStudent from "../../../../src/views/student/components/navbar/NavBarStudent";
 
 const localVue = createLocalVue();
 localVue.use(ElementUI);
@@ -13,7 +13,7 @@ const axios = {
     get: async () => "success"
 };
 
-const wrapper = shallowMount(NavBarTeacher, {
+const wrapper = shallowMount(NavBarStudent, {
     mocks: {
         axios
     },
@@ -24,20 +24,20 @@ const wrapper = shallowMount(NavBarTeacher, {
  * 检查初始化状态的测试用例
  * 对组件内部状态的访问
  */
-describe("NavBarTeacher", () => {
+describe("NavBarStudent", () => {
 
     // 检查原始组件中的初始数据和函数
     it("sets the correct default data", () => {
         // expect(typeof NavBarTeacher.handleSelect).toBe('function')
-        expect(typeof NavBarTeacher.data).toBe('function');
-        const defaultData = NavBarTeacher.data();
+        expect(typeof NavBarStudent.data).toBe('function');
+        const defaultData = NavBarStudent.data();
         expect(defaultData.activeIndex).toEqual('browse');
-        expect(defaultData.name).toEqual("Dolo");
+        expect(defaultData.DoloName).toEqual("Dolo");
     });
 
     // 检查 mount 中的组件实例
     it('correctly sets the message when created', () => {
         expect(wrapper.vm.$data.activeIndex).toBe('browse');
-        expect(wrapper.vm.$data.name).toBe('Dolo');
+        expect(wrapper.vm.$data.DoloName).toBe('Dolo');
     })
 });
