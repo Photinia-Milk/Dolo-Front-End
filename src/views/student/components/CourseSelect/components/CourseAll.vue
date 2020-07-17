@@ -155,143 +155,143 @@
         },
         methods: {
             // 实现添加功能
-            // submitForm(formName) {
-            //     this.$refs[formName].validate(valid => {
-            //         if (valid) {
-            //             // 表单验证成功
-            //             var strData = {
-            //                 Title: this.ruleForm.Title,
-            //                 Introduction: this.ruleForm.Introduction
-            //             };
-            //             // 改变post的编码格式，适应后台
-            //             this.axios
-            //                 .post("http://localhost:8004/Courses/create", qs.stringify(strData))
-            //                 .then(result => {
-            //                     if (result.status === 200 || result.status == 302) {
-            //                         this.$message({
-            //                             message: "添加成功(*￣︶￣)，",
-            //                             type: "success"
-            //                         });
-            //                         this.getAllcourses();
-            //                     }
-            //                 })
-            //                 .catch(() => {
-            //                     this.$message({
-            //                         message: "添加失败o(╥﹏╥)o",
-            //                         type: "danger"
-            //                     });
-            //                 });
-            //         } else {
-            //             this.$message.error("阁下填写不完整喔！刘大侠我快马加鞭前来提示！");
-            //             return false;
-            //         }
-            //     });
-            // },
-            // // 重置表单
-            // resetForm(formName) {
-            //     this.$refs[formName].resetFields();
-            // },
-            // //为表格添加序号
-            // indexMethod(index) {
-            //     return index + 1;
-            // },
+            submitForm(formName) {
+                this.$refs[formName].validate(valid => {
+                    if (valid) {
+                        // 表单验证成功
+                        // var strData = {
+                        //     Title: this.ruleForm.Title,
+                        //     Introduction: this.ruleForm.Introduction
+                        // };
+                        // // 改变post的编码格式，适应后台
+                        // this.axios
+                        //     .post("http://localhost:8004/Courses/create", qs.stringify(strData))
+                        //     .then(result => {
+                        //         if (result.status === 200 || result.status == 302) {
+                        //             this.$message({
+                        //                 message: "添加成功(*￣︶￣)，",
+                        //                 type: "success"
+                        //             });
+                        //             this.getAllcourses();
+                        //         }
+                        //     })
+                        //     .catch(() => {
+                        //         this.$message({
+                        //             message: "添加失败o(╥﹏╥)o",
+                        //             type: "danger"
+                        //         });
+                        //     });
+                    } else {
+                        this.$message.error("阁下填写不完整喔！刘大侠我快马加鞭前来提示！");
+                        return false;
+                    }
+                });
+            },
+            // 重置表单
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            },
+            //为表格添加序号
+            indexMethod(index) {
+                return index + 1;
+            },
             //
-            // // 实现删除功能
-            // handleDelete(index, row) {
-            //     // console.log(index, row);
-            //     this.$confirm("此操作将删除该课程所有信息, 是否继续?", "提示", {
-            //         cancelButtonText: "取消",
-            //         confirmButtonText: "确定",
-            //         type: "warning"
-            //     })
-            //         .then(() => {
-            //             this.axios
-            //                 .get("http://localhost:8004/Courses/Delete?id=" + row.Id)
-            //                 .then(result => {
-            //                     if (result.status == 200 || result.status == 302) {
-            //                         this.$message({
-            //                             message: "删除成功(*￣︶￣)，",
-            //                             type: "success"
-            //                         });
-            //                         this.getAllcourses();
-            //                     }
-            //                 })
-            //                 .catch(() => {
-            //                     this.$message({
-            //                         message: "删除失败o(╥﹏╥)o",
-            //                         type: "danger"
-            //                     });
-            //                 });
-            //         })
-            //         .catch(() => {
-            //             this.$message({
-            //                 type: "info",
-            //                 message: "已取消删除"
-            //             });
-            //         });
-            // },
-            // handleSizeChange: function (size) {
-            //     this.pagesize = size;
-            //     console.log(this.pagesize)  //每页下拉显示数据
-            // },
-            // handleCurrentChange: function(currentPage){
-            //     this.currentPage = currentPage;
-            //     console.log(this.currentPage)  //点击第几页
-            // },
-            // handleUserList() {
-            //     this.$http.get('http://localhost:3000/userList').then(res => {  //这是从本地请求的数据接口，
-            //         this.userList = res.body
-            //     })
-            // },
+            // 实现删除功能
+            handleDelete(index, row) {
+                // console.log(index, row);
+                this.$confirm("此操作将删除该课程所有信息, 是否继续?", "提示", {
+                    cancelButtonText: "取消",
+                    confirmButtonText: "确定",
+                    type: "warning"
+                })
+                    .then(() => {
+                        this.axios
+                            .get("http://localhost:8004/Courses/Delete?id=" + row.Id)
+                            .then(result => {
+                                if (result.status == 200 || result.status == 302) {
+                                    this.$message({
+                                        message: "删除成功(*￣︶￣)，",
+                                        type: "success"
+                                    });
+                                    this.getAllcourses();
+                                }
+                            })
+                            .catch(() => {
+                                this.$message({
+                                    message: "删除失败o(╥﹏╥)o",
+                                    type: "danger"
+                                });
+                            });
+                    })
+                    .catch(() => {
+                        this.$message({
+                            type: "info",
+                            message: "已取消删除"
+                        });
+                    });
+            },
+            handleSizeChange: function (size) {
+                this.pagesize = size;
+                console.log(this.pagesize)  //每页下拉显示数据
+            },
+            handleCurrentChange: function(currentPage){
+                this.currentPage = currentPage;
+                console.log(this.currentPage)  //点击第几页
+            },
+            handleUserList() {
+                this.$http.get('http://localhost:3000/userList').then(res => {  //这是从本地请求的数据接口，
+                    this.userList = res.body
+                })
+            },
             //
-            // handleClick(row) {
-            //     // 数据回显
-            //     console.log(row);
-            //     // this.resetForm(updateForm);
-            //     this.updateForm.Title = row.Title;
-            //     this.updateForm.Introduction = row.Introduction;
-            //     this.updateForm.Id = row.Id;
-            //     this.dialogFormVisible = true;
-            // },
-            // // 提交修改
-            // updateStudent(formName) {
-            //     this.$refs[formName].validate(valid => {
-            //         if (valid) {
-            //             let updateData = {
-            //                 Id: this.updateForm.Id,
-            //                 Title: this.updateForm.Title,
-            //                 Introduction: this.updateForm.Introduction
-            //             };
-            //             this.dialogFormVisible = false;
-            //             //  改变post的编码格式，适应后台  修改！
-            //             this.$axios
-            //                 .post(
-            //                     "http://localhost:8004/Courses/Edit",
-            //                     qs.stringify(updateData)
-            //                 )
-            //                 .then(result => {
-            //                     if (result.status == 200 || result.status == 302) {
-            //                         this.$notify({
-            //                             id: "",
-            //                             title: "修改成功",
-            //                             message: "信息已修改完成！请查看",
-            //                             type: "success"
-            //                         });
-            //                         this.getAllcourses();
-            //                     }
-            //                 })
-            //                 .catch(() => {
-            //                     this.$message({
-            //                         message: "添加失败o(╥﹏╥)o",
-            //                         type: "danger"
-            //                     });
-            //                 });
-            //         } else {
-            //             this.$message.error("阁下网络错误！刘大侠我快马加鞭前来提示！");
-            //             return false;
-            //         }
-            //     });
-            // },
+            handleClick(row) {
+                // 数据回显
+                console.log(row);
+                // this.resetForm(updateForm);
+                this.updateForm.Title = row.Title;
+                this.updateForm.Introduction = row.Introduction;
+                this.updateForm.Id = row.Id;
+                this.dialogFormVisible = true;
+            },
+            // 提交修改
+            updateStudent(formName) {
+                this.$refs[formName].validate(valid => {
+                    if (valid) {
+                        // let updateData = {
+                        //     Id: this.updateForm.Id,
+                        //     Title: this.updateForm.Title,
+                        //     Introduction: this.updateForm.Introduction
+                        // };
+                        this.dialogFormVisible = false;
+                        // //  改变post的编码格式，适应后台  修改！
+                        // this.$axios
+                        //     .post(
+                        //         "http://localhost:8004/Courses/Edit",
+                        //         qs.stringify(updateData)
+                        //     )
+                        //     .then(result => {
+                        //         if (result.status == 200 || result.status == 302) {
+                        //             this.$notify({
+                        //                 id: "",
+                        //                 title: "修改成功",
+                        //                 message: "信息已修改完成！请查看",
+                        //                 type: "success"
+                        //             });
+                        //             this.getAllcourses();
+                        //         }
+                        //     })
+                        //     .catch(() => {
+                        //         this.$message({
+                        //             message: "添加失败o(╥﹏╥)o",
+                        //             type: "danger"
+                        //         });
+                        //     });
+                    } else {
+                        this.$message.error("阁下网络错误！刘大侠我快马加鞭前来提示！");
+                        return false;
+                    }
+                });
+            },
 
             // 查验简介是否为空
             checkNull(row) {
@@ -305,7 +305,9 @@
                 getAllCourse(this.pageInfo).then(res=>{
                     if(res.status==200)
                     {
+                        console.log(JSON.stringify(res.data));
                         this.$message.success('返回成功！')
+                        this.loading = false;
                     }
                 }).catch(()=>{
                     this.$message.error('网络异常，请稍后重试')
