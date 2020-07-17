@@ -308,6 +308,7 @@
                         console.log(JSON.stringify(res.data));
                         this.$message.success('返回成功！')
                         this.loading = false;
+                        this.coursesData = res.data;
                     }
                 }).catch(()=>{
                     this.$message.error('网络异常，请稍后重试')
