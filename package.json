@@ -141,7 +141,8 @@
     },
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "**/*.{js,vue}",
+      "!**/Login.vue",
+      "**/views/**/*.{js,vue}",
       "!**/node_modules/**"
     ],
     "coverageReporters": [

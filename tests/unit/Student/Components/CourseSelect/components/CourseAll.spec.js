@@ -4,9 +4,17 @@ import CourseAll from  "../../../../../../src/views/student/components/CourseSel
 const localVue = createLocalVue();
 localVue.use(ElementUI);
 
+const res={
+    status:200,
+    data:''
+};
+const axios={
+    post:async ()=>{return res}
+};
+
 const wrapper=mount(CourseAll,{
     mocks:{
-        getAllCourse: async ()=>{return "get success"}
+        axios
     },
     localVue
 });
@@ -22,15 +30,15 @@ describe('init', function () {
         const coursesData= [];
         const  updateForm= {
             Id: "",
-            Title: "",
-            Introduction: ""
+            courseName: "",
+            description: ""
         };
         const rules= {
-            Title: [
+            courseName: [
                 { required: true, message: "请输入课程名", trigger: "change" },
                 { min: 2, max: 10, message: "长度在 2到 10 个字符", trigger: "blur" }
             ],
-            Introduction:[
+            description:[
                 {
                     required: true,
                     message: "请填写课程信息,否则无法通过喔~",
@@ -54,10 +62,9 @@ describe('init', function () {
         expect(wrapper.vm.dialogFormVisible).toBeFalsy;
         expect(wrapper.vm.formLabelWidth).toEqual(formLabelWidth);
         //mock
-        expect(wrapper.vm.getAllCourse()).resolves.toEqual("get success");
+        expect(wrapper.vm.axios.post()).resolves.toEqual(res);
     });
-    it('init create',  async ()=> {
-        wrapper.vm.pageInfo="123";
-        expect(wrapper.vm.getAllcourses()).resolves.toEqual("123get success")
+    it('init create',  ()=> {
+        expect(wrapper.vm.getAllcourses()).toBeTruthy();
     });
 });

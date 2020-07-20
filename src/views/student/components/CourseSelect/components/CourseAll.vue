@@ -302,16 +302,18 @@
             // },
             // 获取全部的课程数据
             getAllcourses() {
-                getAllCourse(this.pageInfo).then(res=>{
+              return  getAllCourse(this.pageInfo).then(res=>{
                     if(res.status==200)
                     {
                         console.log(JSON.stringify(res.data));
-                        this.$message.success('返回成功！')
+                        this.$message.success('返回成功！');
                         this.loading = false;
                         this.coursesData = res.data;
+                        return true;
                     }
                 }).catch(()=>{
-                    this.$message.error('网络异常，请稍后重试')
+                    this.$message.error('网络异常，请稍后重试');
+                    return false;
                 })
             }
         },
