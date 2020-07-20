@@ -114,7 +114,7 @@ describe("PublishCourse", () => {
             ]
         }
         expect(wrapper.vm.form).toEqual(formInit);
-        expect(wrapper.vm.semester).toEqual(semesterInit);
+        expect(wrapper. vm.semester).toEqual(semesterInit);
         expect(wrapper.vm.department).toEqual([]);
         expect(wrapper.vm.rules).toEqual(rulesInit);
     });
