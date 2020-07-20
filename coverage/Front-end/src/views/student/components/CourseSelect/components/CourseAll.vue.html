@@ -24,28 +24,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -419,7 +419,10 @@
 <a name='L361'></a><a href='#L361'>361</a>
 <a name='L362'></a><a href='#L362'>362</a>
 <a name='L363'></a><a href='#L363'>363</a>
-<a name='L364'></a><a href='#L364'>364</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L364'></a><a href='#L364'>364</a>
+<a name='L365'></a><a href='#L365'>365</a>
+<a name='L366'></a><a href='#L366'>366</a>
+<a name='L367'></a><a href='#L367'>367</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -610,6 +613,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -718,14 +727,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -807,7 +813,7 @@
                                     label-width="80px"
                                     class="coursesForm"
                             &gt;
-                                &lt;el-form-item prop="Title"&gt;
+                                &lt;el-form-item prop="courseName"&gt;
                                     &lt;div style="margin-top: 20px"&gt;
                                         &lt;el-radio-group v-model="checkboxGroup"  data-label="课程类别" size="small"&gt;
                                             &lt;el-radio-button v-for="cate in category1" :label="cate"  :key="cate"&gt;{{cate}}&lt;/el-radio-button&gt;
@@ -835,16 +841,16 @@
                     v-loading="loading"
                     element-loading-text="拼命加载中"
                     element-loading-spinner="el-icon-loading"
-                    :data="coursesData.filter(data =&gt; !searchName || data.Title.toLowerCase().includes(searchName.toLowerCase()))"
+                    :data="coursesData.filter(data =&gt; !searchName || data.courseName.toLowerCase().includes(searchName.toLowerCase()))"
                     border
                     style="width: 100%"
                     min-height="650"
                     max-height="650"
             &gt;
                 &lt;el-table-column type="index" :index="indexMethod"&gt;&lt;/el-table-column&gt;
-                &lt;el-table-column prop="Title" label="课程名" width="150"&gt;&lt;/el-table-column&gt;
-                &lt;el-table-column prop="Enrollments.length" sortable label="选修人数" width="120"&gt;&lt;/el-table-column&gt;
-                &lt;el-table-column prop="Introduction" label="课程简介" :formatter="checkNull"&gt;&lt;/el-table-column&gt;
+                &lt;el-table-column prop="courseName" label="课程名" width="150"&gt;&lt;/el-table-column&gt;
+                &lt;el-table-column prop="currentNum" sortable label="选修人数" width="120"&gt;&lt;/el-table-column&gt;
+                &lt;el-table-column prop="description" label="课程简介" :formatter="checkNull"&gt;&lt;/el-table-column&gt;
                 &lt;el-table-column fixed="right" label="操作" width="200"&gt;
                     &lt;template slot-scope="scope"&gt;
                         &lt;el-button @click="handleClick(scope.row)" type="warning" size="small"&gt;修改&lt;/el-button&gt;
@@ -870,13 +876,13 @@
 &nbsp;
             &lt;el-dialog title="课程信息" :visible.sync="dialogFormVisible"&gt;
                 &lt;el-form :model="updateForm" class="content" :rules="rules" ref="updateForm"&gt;
-                    &lt;el-form-item label="课程名" prop="Title" :label-width="formLabelWidth"&gt;
-                        &lt;el-input v-model="updateForm.Title" autocomplete="off"&gt;&lt;/el-input&gt;
+                    &lt;el-form-item label="课程名" prop="courseName" :label-width="formLabelWidth"&gt;
+                        &lt;el-input v-model="updateForm.courseName" autocomplete="off"&gt;&lt;/el-input&gt;
                     &lt;/el-form-item&gt;
-                    &lt;el-form-item label="课程简介" prop="Introduction" :label-width="formLabelWidth"&gt;
+                    &lt;el-form-item label="课程简介" prop="description" :label-width="formLabelWidth"&gt;
                         &lt;el-input
                                 type="textarea"
-                                v-model="updateForm.Introduction"
+                                v-model="updateForm.description"
                                 placeholder="请填写课程信息"
                                 maxlength="50"
                                 :autosize="{ minRows: 4, maxRows: 6}"
@@ -909,23 +915,23 @@
                 loading: true,
                 // 增加课程 表单项设置
                 ruleForm: {
-                    Title: "",
+                    courseName: "",
                     Number: "",
-                    Introduction: ""
+                    description: ""
                 },
                 // 修改时课程信息 表单项设置
                 updateForm: {
                     Id: "",
-                    Title: "",
-                    Introduction: ""
+                    courseName: "",
+                    description: ""
                 },
                 // 校验规则
                 rules: {
-                    Title: [
+                    courseName: [
                         { required: true, message: "请输入课程名", trigger: "change" },
                         { min: 2, max: 10, message: "长度在 2到 10 个字符", trigger: "blur" }
                     ],
-                    Introduction: [
+                    description: [
                         {
                             required: true,
                             message: "请填写课程信息,否则无法通过喔~",
@@ -938,47 +944,47 @@
             };
         },
         methods: {
-            // 实现添加功能
+            // // 实现添加功能
             // submitForm(formName) {
             //     this.$refs[formName].validate(valid =&gt; {
             //         if (valid) {
             //             // 表单验证成功
-            //             var strData = {
-            //                 Title: this.ruleForm.Title,
-            //                 Introduction: this.ruleForm.Introduction
-            //             };
-            //             // 改变post的编码格式，适应后台
-            //             this.axios
-            //                 .post("http://localhost:8004/Courses/create", qs.stringify(strData))
-            //                 .then(result =&gt; {
-            //                     if (result.status === 200 || result.status == 302) {
-            //                         this.$message({
-            //                             message: "添加成功(*￣︶￣)，",
-            //                             type: "success"
-            //                         });
-            //                         this.getAllcourses();
-            //                     }
-            //                 })
-            //                 .catch(() =&gt; {
-            //                     this.$message({
-            //                         message: "添加失败o(╥﹏╥)o",
-            //                         type: "danger"
-            //                     });
-            //                 });
+            //             // var strData = {
+            //             //     courseName: this.ruleForm.courseName,
+            //             //     description: this.ruleForm.description
+            //             // };
+            //             // // 改变post的编码格式，适应后台
+            //             // this.axios
+            //             //     .post("http://localhost:8004/Courses/create", qs.stringify(strData))
+            //             //     .then(result =&gt; {
+            //             //         if (result.status === 200 || result.status == 302) {
+            //             //             this.$message({
+            //             //                 message: "添加成功(*￣︶￣)，",
+            //             //                 type: "success"
+            //             //             });
+            //             //             this.getAllcourses();
+            //             //         }
+            //             //     })
+            //             //     .catch(() =&gt; {
+            //             //         this.$message({
+            //             //             message: "添加失败o(╥﹏╥)o",
+            //             //             type: "danger"
+            //             //         });
+            //             //     });
             //         } else {
             //             this.$message.error("阁下填写不完整喔！刘大侠我快马加鞭前来提示！");
             //             return false;
             //         }
             //     });
             // },
-            // // 重置表单
-            // resetForm(formName) {
-            //     this.$refs[formName].resetFields();
-            // },
-            // //为表格添加序号
-            // indexMethod(index) {
-            //     return index + 1;
-            // },
+            // 重置表单
+<span class="fstat-no" title="function not covered" >            resetForm(formName) {</span>
+<span class="cstat-no" title="statement not covered" >                this.$refs[formName].resetFields();</span>
+            },
+            //为表格添加序号
+<span class="fstat-no" title="function not covered" >            indexMethod(index) {</span>
+<span class="cstat-no" title="statement not covered" >                return index + 1;</span>
+            },
             //
             // // 实现删除功能
             // handleDelete(index, row) {
@@ -1032,8 +1038,8 @@
             //     // 数据回显
             //     console.log(row);
             //     // this.resetForm(updateForm);
-            //     this.updateForm.Title = row.Title;
-            //     this.updateForm.Introduction = row.Introduction;
+            //     this.updateForm.courseName = row.courseName;
+            //     this.updateForm.description = row.description;
             //     this.updateForm.Id = row.Id;
             //     this.dialogFormVisible = true;
             // },
@@ -1041,35 +1047,35 @@
             // updateStudent(formName) {
             //     this.$refs[formName].validate(valid =&gt; {
             //         if (valid) {
-            //             let updateData = {
-            //                 Id: this.updateForm.Id,
-            //                 Title: this.updateForm.Title,
-            //                 Introduction: this.updateForm.Introduction
-            //             };
+            //             // let updateData = {
+            //             //     Id: this.updateForm.Id,
+            //             //     courseName: this.updateForm.courseName,
+            //             //     description: this.updateForm.description
+            //             // };
             //             this.dialogFormVisible = false;
-            //             //  改变post的编码格式，适应后台  修改！
-            //             this.$axios
-            //                 .post(
-            //                     "http://localhost:8004/Courses/Edit",
-            //                     qs.stringify(updateData)
-            //                 )
-            //                 .then(result =&gt; {
-            //                     if (result.status == 200 || result.status == 302) {
-            //                         this.$notify({
-            //                             id: "",
-            //                             title: "修改成功",
-            //                             message: "信息已修改完成！请查看",
-            //                             type: "success"
-            //                         });
-            //                         this.getAllcourses();
-            //                     }
-            //                 })
-            //                 .catch(() =&gt; {
-            //                     this.$message({
-            //                         message: "添加失败o(╥﹏╥)o",
-            //                         type: "danger"
-            //                     });
-            //                 });
+            //             // //  改变post的编码格式，适应后台  修改！
+            //             // this.$axios
+            //             //     .post(
+            //             //         "http://localhost:8004/Courses/Edit",
+            //             //         qs.stringify(updateData)
+            //             //     )
+            //             //     .then(result =&gt; {
+            //             //         if (result.status == 200 || result.status == 302) {
+            //             //             this.$notify({
+            //             //                 id: "",
+            //             //                 title: "修改成功",
+            //             //                 message: "信息已修改完成！请查看",
+            //             //                 type: "success"
+            //             //             });
+            //             //             this.getAllcourses();
+            //             //         }
+            //             //     })
+            //             //     .catch(() =&gt; {
+            //             //         this.$message({
+            //             //             message: "添加失败o(╥﹏╥)o",
+            //             //             type: "danger"
+            //             //         });
+            //             //     });
             //         } else {
             //             this.$message.error("阁下网络错误！刘大侠我快马加鞭前来提示！");
             //             return false;
@@ -1077,19 +1083,22 @@
             //     });
             // },
 &nbsp;
-            // 查验简介是否为空
-<span class="fstat-no" title="function not covered" >            checkNull(row) {</span>
-                // console.log(row)
-<span class="cstat-no" title="statement not covered" >                return row.Introduction == null</span>
-                    ? "该课程暂无介绍信息 ￣□￣｜｜"
-                    : row.Introduction;
-            },
+            // // 查验简介是否为空
+            // checkNull(row) {
+            //     // console.log(row)
+            //     return row.description == null
+            //         ? "该课程暂无介绍信息 ￣□￣｜｜"
+            //         : row.description;
+            // },
             // 获取全部的课程数据
 <span class="fstat-no" title="function not covered" >            getAllcourses() {</span>
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >                getAllCourse(this.pageInfo).then(res=&gt;{</span></span>
 <span class="cstat-no" title="statement not covered" >                    if(res.status==200)</span>
                     {
+<span class="cstat-no" title="statement not covered" >                        console.log(JSON.stringify(res.data));</span>
 <span class="cstat-no" title="statement not covered" >                        this.$message.success('返回成功！')</span>
+<span class="cstat-no" title="statement not covered" >                        this.loading = false;</span>
+<span class="cstat-no" title="statement not covered" >                        this.coursesData = res.data;</span>
                     }
 <span class="fstat-no" title="function not covered" >                }).catch(()=&gt;{</span>
 <span class="cstat-no" title="statement not covered" >                    this.$message.error('网络异常，请稍后重试')</span>
@@ -1152,7 +1161,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 17 2020 21:20:04 GMT+0800 (GMT+08:00)
+                at Mon Jul 20 2020 11:11:27 GMT+0800 (GMT+08:00)
             </div>
         </div>
         <script src="..\..\..\..\..\..\..\prettify.js"></script>

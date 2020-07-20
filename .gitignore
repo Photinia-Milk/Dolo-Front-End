@@ -4,6 +4,7 @@
 
 #coverage files
 ./coverage
+./coverage/*
 /coverage
 coverage
 
@@ -33,7 +34,6 @@ build/
 .gradle
 local.properties
 *.iml
-coverage
 
 # node.js
 #
