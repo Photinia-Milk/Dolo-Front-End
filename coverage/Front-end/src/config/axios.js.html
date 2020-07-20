@@ -24,28 +24,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Branches</span>
                 <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -102,7 +102,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -110,69 +124,55 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axios from 'axios';
-import router from "../router/index";
+// import router from "../router/index";
 &nbsp;
 // request interceptor
 <span class="cstat-no" title="statement not covered" >axios.interceptors.request.use(</span>
-<span class="fstat-no" title="function not covered" >    co</span>nfig =&gt; {
-<span class="cstat-no" title="statement not covered" >        console.log("preparing token : ");</span>
-        //config.url += '?date=' + new Date().getTime();
-        // 如果是登录和注册的请求，就不需要加JWT
-        //if (config.url.indexOf("login") == -1 &amp;&amp; config.url.indexOf("register") == -1) {
-        //const JWT = localStorage.getItem("token");
-&nbsp;
-        const JWT = <span class="cstat-no" title="statement not covered" >sessionStorage.getItem("token");</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >        config.headers['token'] = JWT;</span>
-        //}
-<span class="cstat-no" title="statement not covered" >        return config</span>
-    },
-<span class="fstat-no" title="function not covered" >    er</span>ror =&gt; {
-        // do something with request error
-<span class="cstat-no" title="statement not covered" >        console.log("request interceptor error", error) </span>// for debug
-<span class="cstat-no" title="statement not covered" >        return Promise.reject(error)</span>
-    }
+    // config =&gt; {
+    //     console.log("preparing token : ");
+    //     //config.url += '?date=' + new Date().getTime();
+    //     // 如果是登录和注册的请求，就不需要加JWT
+    //     //if (config.url.indexOf("login") == -1 &amp;&amp; config.url.indexOf("register") == -1) {
+    //     //const JWT = localStorage.getItem("token");
+    //
+    //     const JWT = sessionStorage.getItem("token");
+    //
+    //     config.headers['token'] = JWT;
+    //     //}
+    //     return config
+    // },
+    // error =&gt; {
+    //     // do something with request error
+    //     console.log("request interceptor error", error) // for debug
+    //     return Promise.reject(error)
+    // }
 )
 &nbsp;
 // http response 拦截器
 <span class="cstat-no" title="statement not covered" >axios.interceptors.response.use(</span>
-<span class="fstat-no" title="function not covered" >    re</span>sponse =&gt; {
-<span class="cstat-no" title="statement not covered" >        if (response.data.errno !== 0) {</span>
-<span class="cstat-no" title="statement not covered" >            router.replace('/');</span>
-<span class="cstat-no" title="statement not covered" >            console.log("token过期");</span>
-        }
-<span class="cstat-no" title="statement not covered" >        return response;</span>
-    },
-<span class="fstat-no" title="function not covered" >    er</span>ror =&gt; {
-<span class="cstat-no" title="statement not covered" >        return Promise.reject(error);</span>
-    }
+    // response =&gt; {
+    //     if (response.data.errno !== 0) {
+    //         router.replace('/');
+    //         console.log("token过期");
+    //     }
+    //     return response;
+    // },
+    // error =&gt; {
+    //     return Promise.reject(error);
+    // }
 );
 &nbsp;
 export default axios;
@@ -183,7 +183,7 @@ export default axios;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 17 2020 21:20:04 GMT+0800 (GMT+08:00)
+                at Mon Jul 20 2020 11:11:27 GMT+0800 (GMT+08:00)
             </div>
         </div>
         <script src="..\..\..\prettify.js"></script>
