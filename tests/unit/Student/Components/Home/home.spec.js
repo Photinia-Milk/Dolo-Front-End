@@ -1,6 +1,6 @@
 import {createLocalVue,mount } from "@vue/test-utils";
 import ElementUI from "element-ui";
-import home from "../../../../src/views/student/components/home/home";
+import home from "../../../../../src/views/student/components/home/home";
 
 const localVue = createLocalVue();
 localVue.use(ElementUI);

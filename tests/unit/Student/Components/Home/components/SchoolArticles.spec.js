@@ -1,6 +1,6 @@
 import {createLocalVue,mount } from "@vue/test-utils";
 import ElementUI from "element-ui";
-import SchoolArticles from "../../../src/views/student/components/home/components/SchoolArticles";
+import SchoolArticles from "../../../../../../src/views/student/components/home/components/SchoolArticles";
 
 const localVue = createLocalVue();
 localVue.use(ElementUI);

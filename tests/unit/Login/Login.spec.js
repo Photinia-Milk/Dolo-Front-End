@@ -1,7 +1,6 @@
 
 import { createLocalVue, mount } from "@vue/test-utils";
 import Login2 from "../../../src/views/login/Login2";
-import login from "../../../src/api/api"
 import ElementUI from "element-ui";
 
 const localVue = createLocalVue();
@@ -11,7 +10,7 @@ localVue.use(ElementUI);
  * mock的axios
  * 可以根据需要添加其他函数功能
  */
-const $axios = {
+const axios = {
     get: async () => "get success",
     post:async()=>"post success",
     login :async ()=>"login success"
@@ -19,7 +18,7 @@ const $axios = {
 
 const wrapper = mount(Login2, {
     mocks: {
-        $axios
+        axios
     },
     localVue
 });
@@ -50,7 +49,7 @@ describe("init", () => {
 
 describe("login",()=>{
     it("(async login)login",async ()=>{
-    expect(wrapper.vm.tologin()).resolves.toBe("post success")
+   await expect(wrapper.vm.tologin()).resolves.toBe("post success")
     });
 
     it("login through button",async()=>{
