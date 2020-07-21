@@ -1,0 +1,10 @@
+{
+  "baseUrl": "http://localhost:8080",
+  "reporter": "mochawesome",
+  "reporterOptions": {
+    "reportDir": "cypresse/results",
+    "overwrite": true,
+    "html": true,
+    "json": true
+  }
+}

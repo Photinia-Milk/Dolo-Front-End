@@ -7,6 +7,11 @@ coverage/*
 /coverage
 coverage
 
+#cypress
+cypress/videos/*
+cypress/screenshots/*
+cypresse/*
+
 # Xcode
 #
 build/
