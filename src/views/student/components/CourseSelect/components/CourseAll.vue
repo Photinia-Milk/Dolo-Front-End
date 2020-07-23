@@ -6,12 +6,10 @@
             <div class="menu">
                 <el-timeline>
                     <el-timeline-item placement="top">
-                        <el-card>
+                        <el-card >
                             <h4>课程查询</h4>
-                            <el-input placeholder="请输入课程名" class="searchName" v-model="searchName">
-                                <!-- <el-button slot="append" type="primary" icon="el-icon-search">搜索</el-button> -->
-                            </el-input>
-                            <el-button type="primary" icon="el-icon-search" round>搜索</el-button>
+                            <el-input placeholder="请输入课程名" class="searchName" v-model="trySearchName" ></el-input>
+                            <el-button type="primary" style="margin-left: 10px;margin-top:10px;" icon="el-icon-search" round @click="searchCourse">搜索</el-button>
                         </el-card>
                     </el-timeline-item>
                     <el-timeline-item placement="top">
@@ -38,11 +36,7 @@
                             </el-form>
                         </el-card>
                     </el-timeline-item>
-                    <el-timeline-item placement="top">
-                        <el-card>
-                            <h4>created by©毛昊天 &nbsp;<span style="font-weight:100;font-size:0.7em">吾乃暗裔</span></h4>
-                        </el-card>
-                    </el-timeline-item>
+
                 </el-timeline>
             </div>
         </div>
@@ -51,65 +45,52 @@
                     v-loading="loading"
                     element-loading-text="拼命加载中"
                     element-loading-spinner="el-icon-loading"
-                    :data="coursesData.filter(data => !searchName || data.courseName.toLowerCase().includes(searchName.toLowerCase()))"
-                    border
-                    style="width: 100%"
-                    min-height="650"
-                    max-height="650"
+                    :data="coursesData"
+                    style="width: 95%"
+                    :header-cell-style="tableCenter"
+                    :cell-style="tableCenter"
             >
                 <el-table-column type="index" :index="indexMethod"></el-table-column>
                 <el-table-column prop="courseName" label="课程名" width="150"></el-table-column>
-                <el-table-column prop="currentNum" sortable label="选修人数" width="120"></el-table-column>
-                <el-table-column prop="description" label="课程简介" :formatter="checkNull"></el-table-column>
-                <el-table-column fixed="right" label="操作" width="200">
+                <el-table-column label="选修人数" width="120">
                     <template slot-scope="scope">
-                        <el-button @click="handleClick(scope.row)" type="warning" size="small">修改</el-button>
+                        {{scope.row.currentNum+'/'+scope.row.maxNum}}
+                    </template>
+                </el-table-column>
+                <el-table-column prop="description" label="课程性质"></el-table-column>
+                <el-table-column prop="credits" label="学分"></el-table-column>
+                <!--                :formatter="checkNull"-->
+                <el-table-column fixed="right" width="100">
+                    <template slot-scope="scope">
+                        <el-button @click="Chooseone(scope.row)" type="warning" size="small">选课</el-button>
                         <el-tooltip
-                                content="删除这门课程？"
+                                content="确认要选课吗？"
                                 placement="top"
                                 effect="light"
                                 :hide-after="1000"
                                 :enterable="false"
                         >
-                            <el-button
-                                    @click="handleDelete(scope.$index, scope.row)"
-                                    type="danger"
-                                    size="small"
-                                    icon="el-icon-delete"
-                                    circle
-                                    plain
-                            ></el-button>
                         </el-tooltip>
                     </template>
                 </el-table-column>
             </el-table>
-
-            <el-dialog title="课程信息" :visible.sync="dialogFormVisible">
-                <el-form :model="updateForm" class="content" :rules="rules" ref="updateForm">
-                    <el-form-item label="课程名" prop="courseName" :label-width="formLabelWidth">
-                        <el-input v-model="updateForm.courseName" autocomplete="off"></el-input>
-                    </el-form-item>
-                    <el-form-item label="课程简介" prop="description" :label-width="formLabelWidth">
-                        <el-input
-                                type="textarea"
-                                v-model="updateForm.description"
-                                placeholder="请填写课程信息"
-                                maxlength="50"
-                                :autosize="{ minRows: 4, maxRows: 6}"
-                                show-word-limit
-                        ></el-input>
-                    </el-form-item>
-                </el-form>
-                <div slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="updateStudent('updateForm')">确 定</el-button>
-                    <el-button @click="dialogFormVisible = false">取 消</el-button>
-                </div>
-            </el-dialog>
+            <div class="block" style="margin-top:15px;">
+                <span>
+                    <el-pagination
+                            @current-change="handleCurrentChange"
+                            :current-page="pageInfo.startIndex"
+                            :page-size="pageInfo.pageSize"
+                            :hide-on-single-page="true"
+                            layout="total, prev, pager, next, jumper"
+                            :total="20">
+                 </el-pagination>
+                </span>
+            </div>
         </div>
     </div>
 </template>
 <script>
-    import {getAllCourse} from "../../../../../api/api";
+    import {getAllCourse, searchCourse} from "../../../../../api/api";
 
     export default {
         name: "course",
@@ -120,6 +101,7 @@
                 category1:['民族生课程','必修课程','通识课','选修课'],
                 checkboxGroup:[],
                 name: "亚托克斯",
+                trySearchName:'',
                 searchName: "",
                 coursesData: [],
                 loading: true,
@@ -141,53 +123,12 @@
                         { required: true, message: "请输入课程名", trigger: "change" },
                         { min: 2, max: 10, message: "长度在 2到 10 个字符", trigger: "blur" }
                     ],
-                    description: [
-                        {
-                            required: true,
-                            message: "请填写课程信息,否则无法通过喔~",
-                            trigger: "change"
-                        }
-                    ]
                 },
                 dialogFormVisible: false,
                 formLabelWidth: "6em"
             };
         },
         methods: {
-            // // 实现添加功能
-            // submitForm(formName) {
-            //     this.$refs[formName].validate(valid => {
-            //         if (valid) {
-            //             // 表单验证成功
-            //             // var strData = {
-            //             //     courseName: this.ruleForm.courseName,
-            //             //     description: this.ruleForm.description
-            //             // };
-            //             // // 改变post的编码格式，适应后台
-            //             // this.axios
-            //             //     .post("http://localhost:8004/Courses/create", qs.stringify(strData))
-            //             //     .then(result => {
-            //             //         if (result.status === 200 || result.status == 302) {
-            //             //             this.$message({
-            //             //                 message: "添加成功(*￣︶￣)，",
-            //             //                 type: "success"
-            //             //             });
-            //             //             this.getAllcourses();
-            //             //         }
-            //             //     })
-            //             //     .catch(() => {
-            //             //         this.$message({
-            //             //             message: "添加失败o(╥﹏╥)o",
-            //             //             type: "danger"
-            //             //         });
-            //             //     });
-            //         } else {
-            //             this.$message.error("阁下填写不完整喔！刘大侠我快马加鞭前来提示！");
-            //             return false;
-            //         }
-            //     });
-            // },
-            // 重置表单
             resetForm(formName) {
                 this.$refs[formName].resetFields();
             },
@@ -195,41 +136,13 @@
             indexMethod(index) {
                 return index + 1;
             },
-            //
-            // // 实现删除功能
-            // handleDelete(index, row) {
-            //     // console.log(index, row);
-            //     this.$confirm("此操作将删除该课程所有信息, 是否继续?", "提示", {
-            //         cancelButtonText: "取消",
-            //         confirmButtonText: "确定",
-            //         type: "warning"
-            //     })
-            //         .then(() => {
-            //             this.axios
-            //                 .get("http://localhost:8004/Courses/Delete?id=" + row.Id)
-            //                 .then(result => {
-            //                     if (result.status == 200 || result.status == 302) {
-            //                         this.$message({
-            //                             message: "删除成功(*￣︶￣)，",
-            //                             type: "success"
-            //                         });
-            //                         this.getAllcourses();
-            //                     }
-            //                 })
-            //                 .catch(() => {
-            //                     this.$message({
-            //                         message: "删除失败o(╥﹏╥)o",
-            //                         type: "danger"
-            //                     });
-            //                 });
-            //         })
-            //         .catch(() => {
-            //             this.$message({
-            //                 type: "info",
-            //                 message: "已取消删除"
-            //             });
-            //         });
-            // },
+            tableCenter(){
+                return   "text-align:center";
+            },
+            handleCurrentChange(currentPage){
+                this.pageInfo.startIndex=currentPage;
+                this.getAllcourses();
+            },
             // handleSizeChange: function (size) {
             //     this.pagesize = size;
             //     console.log(this.pagesize)  //每页下拉显示数据
@@ -253,67 +166,50 @@
             //     this.updateForm.Id = row.Id;
             //     this.dialogFormVisible = true;
             // },
-            // // 提交修改
-            // updateStudent(formName) {
-            //     this.$refs[formName].validate(valid => {
-            //         if (valid) {
-            //             // let updateData = {
-            //             //     Id: this.updateForm.Id,
-            //             //     courseName: this.updateForm.courseName,
-            //             //     description: this.updateForm.description
-            //             // };
-            //             this.dialogFormVisible = false;
-            //             // //  改变post的编码格式，适应后台  修改！
-            //             // this.$axios
-            //             //     .post(
-            //             //         "http://localhost:8004/Courses/Edit",
-            //             //         qs.stringify(updateData)
-            //             //     )
-            //             //     .then(result => {
-            //             //         if (result.status == 200 || result.status == 302) {
-            //             //             this.$notify({
-            //             //                 id: "",
-            //             //                 title: "修改成功",
-            //             //                 message: "信息已修改完成！请查看",
-            //             //                 type: "success"
-            //             //             });
-            //             //             this.getAllcourses();
-            //             //         }
-            //             //     })
-            //             //     .catch(() => {
-            //             //         this.$message({
-            //             //             message: "添加失败o(╥﹏╥)o",
-            //             //             type: "danger"
-            //             //         });
-            //             //     });
-            //         } else {
-            //             this.$message.error("阁下网络错误！刘大侠我快马加鞭前来提示！");
-            //             return false;
-            //         }
-            //     });
-            // },
 
-            // // 查验简介是否为空
-            // checkNull(row) {
-            //     // console.log(row)
-            //     return row.description == null
-            //         ? "该课程暂无介绍信息 ￣□￣｜｜"
-            //         : row.description;
-            // },
+            // 查验简介是否为空
+            checkNull(row) {
+                return row.description == null
+                    ? "该课程暂无介绍信息 ￣□￣｜｜"
+                    : row.description;
+            },
+            searchCourse(){
+                if(this.searchName===''&&this.trySearchName===''){
+                    this.$message.error('请输入课程名称！');
+                }
+                else
+                {
+                    this.pageInfo.startIndex=1;
+                    this.searchName=this.trySearchName;
+                    this.loading = true;
+                    const params = {
+                        start_index: (this.pageInfo.startIndex-1)*this.pageInfo.pageSize,
+                        page_size: this.pageInfo.pageSize,
+                        key: this.searchName
+                    };
+                    searchCourse(params).then(res => {
+                        if (res.status == 200) {
+                            this.loading = false;
+                            this.coursesData = res.data;
+                            this.$message.success('查询完成');
+                        }
+                    }).catch(() => {
+                        this.$message.error('网络异常，请稍后重试！');
+                    })
+                }
+            },
             // 获取全部的课程数据
             getAllcourses() {
-              return  getAllCourse(this.pageInfo).then(res=>{
+                this.loading=true;
+                let params={startIndex:(this.pageInfo.startIndex-1)*this.pageInfo.pageSize,pageSize:this.pageInfo.pageSize};
+                getAllCourse(params).then(res=>{
                     if(res.status==200)
                     {
-                        console.log(JSON.stringify(res.data));
-                        this.$message.success('返回成功！');
                         this.loading = false;
                         this.coursesData = res.data;
-                        return true;
                     }
                 }).catch(()=>{
                     this.$message.error('网络异常，请稍后重试');
-                    return false;
                 })
             }
         },
@@ -334,7 +230,7 @@
                 width: 70%;
             }
             .menu {
-                padding: 0% 0% 0 0%;
+                padding: 0 2% 0 0;
                 h4 {
                     margin: 0.2em;
                     padding-bottom: 0.5em;

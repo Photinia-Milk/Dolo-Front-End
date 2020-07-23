@@ -75,7 +75,6 @@
         font-family: "Hiragino Sans GB";
         font-weight: bold;
         font-size: 30px;
-        margin-top: 6px;
     }
     .DoloNameDiv{
         margin-top:7px;

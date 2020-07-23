@@ -11,12 +11,12 @@ localVue.use(BootstrapVue);
  * 可以根据需要添加其他函数功能
  */
 const res={
-    status:200,
-    data:''
+    status:0,
+    data:{status:0}
 };
 
 const axios = {
-    get: async () => {return res},
+    post: async () => {return res},
 };
 
 const wrapper = mount(Login2, {
