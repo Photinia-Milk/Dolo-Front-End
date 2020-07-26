@@ -4,17 +4,17 @@ import CourseAll from  "../../../../../../src/views/student/components/CourseSel
 const localVue = createLocalVue();
 localVue.use(ElementUI);
 
-const res={
+let res={
     status:200,
     data:''
-};
-const axios={
-    post:async ()=>{return res}
 };
 
 const wrapper=mount(CourseAll,{
     mocks:{
-        axios
+        getAllCourse: async  (params)=>{
+            console.log(params);
+            return res;
+        }
     },
     localVue
 });
@@ -25,7 +25,6 @@ describe('init', function () {
         const userList= [];
         const category1=['民族生课程','必修课程','通识课','选修课'];
         const checkboxGroup=[];
-        const name= "亚托克斯";
         const searchName= "";
         const coursesData= [];
         const  updateForm= {
@@ -38,13 +37,6 @@ describe('init', function () {
                 { required: true, message: "请输入课程名", trigger: "change" },
                 { min: 2, max: 10, message: "长度在 2到 10 个字符", trigger: "blur" }
             ],
-            description:[
-                {
-                    required: true,
-                    message: "请填写课程信息,否则无法通过喔~",
-                    trigger: "change"
-                }
-            ]
         };
         const formLabelWidth= "6em";
 
@@ -52,7 +44,7 @@ describe('init', function () {
         expect(wrapper.vm.userList).toEqual(userList);
         expect(wrapper.vm.category1).toEqual(category1);
         expect(wrapper.vm.checkboxGroup).toEqual(checkboxGroup);
-        expect(wrapper.vm.name).toEqual(name);
+        expect(wrapper.vm.trySearchName).toEqual('');
         expect(wrapper.vm.searchName).toEqual(searchName);
         expect(wrapper.vm.coursesData).toEqual(coursesData);
         expect(wrapper.vm.loading).toBeTruthy();
@@ -62,9 +54,12 @@ describe('init', function () {
         expect(wrapper.vm.dialogFormVisible).toBeFalsy;
         expect(wrapper.vm.formLabelWidth).toEqual(formLabelWidth);
         //mock
-        expect(wrapper.vm.axios.post()).resolves.toEqual(res);
+        res.status=200;
+        expect(wrapper.vm.getAllCourse(pageInfo)).resolves.toEqual(res);
     });
     it('init create',  ()=> {
-        expect(wrapper.vm.getAllcourses()).toBeTruthy();
+        res.status=200;
+        wrapper.vm.getAllcourses();
+        expect(wrapper.vm.loading).toBeFalsy();
     });
 });

@@ -1,262 +1,212 @@
 <template>
-    <div>
-        <h2>学生课表({{username}})</h2>
-        <div id="curricula">
-<!--            <div id="search">-->
-<!--                <el-row :gutter="20">-->
-<!--                    <el-col :span="8">-->
-<!--                        <el-input v-model="sub_logic_id" placeholder="请输入课程号"></el-input>-->
-<!--                    </el-col>-->
-<!--                    <el-col :span="4">-->
-<!--                        <el-button type="primary" @click="onById">精确查询</el-button>-->
-<!--                    </el-col>-->
-<!--                    <el-col :span="8">-->
-<!--                        <el-input v-model="sub_name" placeholder="请输入课程名"></el-input>-->
-<!--                    </el-col>-->
-<!--                    <el-col :span="4">-->
-<!--                        <el-button type="primary" @click="onByName">模糊查询</el-button>-->
-<!--                    </el-col>-->
-<!--                </el-row>-->
-<!--            </div>-->
-<!--            <el-table-->
-<!--                    :data="xkData"-->
-<!--                    height="400"-->
-<!--                    style="width: 100%"-->
-<!--                    highlight-current-row-->
-<!--                    align="center"-->
-<!--                    border-->
-<!--            >-->
-<!--                <el-table-column prop="sub_logic_id" label="课程号" width="200" align="center"></el-table-column>-->
-<!--                <el-table-column prop="sub_name" label="课程名" width="800" align="center"></el-table-column>-->
-<!--                <el-table-column label="上课时间(其一)" width="200" align="center">-->
-<!--                    <template slot-scope="scope">{{weekMap[scope.row.week1]+timeMap[scope.row.time1]}}</template>-->
-<!--                </el-table-column>-->
-<!--                <el-table-column label="上课时间(其二)" width="200" align="center">-->
-<!--                    <template slot-scope="scope">{{weekMap[scope.row.week2]+timeMap[scope.row.time2]}}</template>-->
-<!--                </el-table-column>-->
-<!--                <el-table-column prop="teacher" label="任课教师" width="200" align="center">-->
-<!--                    <template slot-scope="scope">{{scope.row.teacher.first_name}}</template>-->
-<!--                </el-table-column>-->
-<!--                <el-table-column label="操作" align="center">-->
-<!--                    <template slot-scope="scope">-->
-<!--                        <el-button-->
-<!--                                type="success"-->
-<!--                                @click="onSelectCourse(scope.row.id,scope.row.sub_logic_id)"-->
-<!--                        >选课</el-button>-->
-<!--                    </template>-->
-<!--                </el-table-column>-->
-<!--            </el-table>-->
-            <h3>当前课表如下</h3>
-            <el-table v-if="TableData" :data="TableData" style="width: 100%" align="center" border>
-                <el-table-column type="index" width="100" align="center"></el-table-column>
-                <el-table-column prop="xq1" label="星期一" :width="kbWidth" align="center">
-                    <template slot-scope="scope">
-                        <el-button
-                                v-if="scope.row.xq1"
-                                type="success"
-                                plain
-                                @click="onBackCource(scope.row.xq1)"
-                        >{{scope.row.xq1.name}}</el-button>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="xq2" label="星期二" :width="kbWidth" align="center">
-                    <template slot-scope="scope">
-                        <el-button
-                                v-if="scope.row.xq2"
-                                type="success"
-                                plain
-                                @click="onBackCource(scope.row.xq2)"
-                        >{{scope.row.xq2.name}}</el-button>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="xq3" label="星期三" :width="kbWidth" align="center">
-                    <template slot-scope="scope">
-                        <el-button
-                                v-if="scope.row.xq3"
-                                type="success"
-                                plain
-                                @click="onBackCource(scope.row.xq3)"
-                        >{{scope.row.xq3.name}}</el-button>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="xq4" label="星期四" :width="kbWidth" align="center">
-                    <template slot-scope="scope">
-                        <el-button
-                                v-if="scope.row.xq4"
-                                type="success"
-                                plain
-                                @click="onBackCource(scope.row.xq4)"
-                        >{{scope.row.xq4.name}}</el-button>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="xq5" label="星期五" :width="kbWidth" align="center">
-                    <template slot-scope="scope">
-                        <el-button
-                                v-if="scope.row.xq5"
-                                type="success"
-                                plain
-                                @click="onBackCource(scope.row.xq5)"
-                        >{{scope.row.xq5.name}}</el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
-        </div>
+    <div class="course-table" >
+        <el-scrollbar style="height: 100%" >
+            <div class="course-table-content" >
+                <div class="top" :style="{width:courseWidth * weekTable.length + 'px'}">
+                    <div v-for="item in weekTable" v-bind:key="item" class="top-text" :style="{width: courseWidth + 'px'}">周{{item}}</div>
+                </div>
+                <div class="main" :style="{ width:courseWidth * weekTable.length + 35 + 'px',
+                                            height:courseHeight * timeTable.length +'px'}">
+                    <div class="period">
+                        <div v-for="item in timeTable" v-bind:key="item" class="left-text" :style="{height: courseHeight + 'px'}">{{item}}</div>
+                    </div>
+                    <!--课表-->
+                    <div v-for="(item,index) in usualCourses " v-bind:key="(item,index)">
+                        <div class="flex-item kcb-item" @click="selectedCourseIndex = index, showUsualCourseDialog=true"
+                             :style="{  marginLeft:(item.day-1) * courseWidth + 'px',
+                                        marginTop:(item.period-1) * courseHeight + 5+ 'px',
+                                        width:courseWidth + 'px',
+                                        height:item.length * courseHeight - 5 +'px',
+                                        backgroundColor:colorArrays[index%9]}">
+                            <div class="small-text" >{{item.name+'@'+item.room}}</div>
+                        </div>
+                    </div>
+                    <!--事件课显示按钮-->
+<!--                    <el-button type="primary" @click="showPracticeCourseDialog = true" class="btn_practice_course">实践课</el-button>-->
+                </div>
+            </div>
+        </el-scrollbar>
+
+<!--        <el-dialog-->
+<!--                title="我的实践课"-->
+<!--                :visible.sync="showPracticeCourseDialog"-->
+<!--                width="30%"-->
+<!--                center>-->
+<!--            <el-scrollbar style="height: 500px;"  wrap-style="overflow-x:hidden;">-->
+<!--                <div class="dialog-content">-->
+<!--                    <div v-for="(item) in practiceCourses" v-bind:key="item">-->
+<!--                        <div>课程名称： {{item.name}}</div>-->
+<!--                        <div>上课教师： {{item.teacher}}</div>-->
+<!--                    </div>-->
+<!--                    <div class="tip" v-if="practiceCourses.length < 1">本学期没有实践课哦</div>-->
+<!--                </div>-->
+<!--            </el-scrollbar>-->
+<!--        </el-dialog>-->
+        <el-dialog
+                title="课程信息"
+                :visible.sync="showUsualCourseDialog"
+                width="30%"
+                center>
+            <div class="dialog-content">
+                <div v-if="typeof(selectedCourse) != 'undefined'" >
+                    <div>课程名称： {{selectedCourse.name}}</div>
+                    <div>上课时间： {{selectedCourse.week + ' ' +
+                        '第' + selectedCourse.period +
+                        '-' + (Number(selectedCourse.period) + Number(selectedCourse.length) - 1) + '节'}}</div>
+                    <div>上课教师： {{selectedCourse.teacher}}</div>
+                    <div>上课地点： {{selectedCourse.room}}</div>
+                </div>
+                <div v-else class="tip" >本学期没有课哦</div>
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="showUsualCourseDialog = false">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
-    // import cookie from "../../../../static/js/cookie";
-    // import {
-    //     getKB,
-    //     delSelectCourse,
-    //     getCourseBySubLogicId,
-    //     getCourseByName,
-    //     createSelectCourse
-    // } from "../../../../api/api";
-
     export default {
-        name: "courseTable",
-        data() {
+        name: "CourseTable",
+        data(){
             return {
-                weekMap: ["星期一", "星期二", "星期三", "星期四", "星期五"],
-                timeMap: ["1-2节", "3-4节", "5-6节", "7-8节", "9-10节", "11-13节"],
-                xkData: null,
-                kbData: null,
-                /*[
-                  {
-                    xq1: 1,
-                    xq2: 1,
-                    xq3: 1,
-                    xq4: 1,
-                    xq5: 1
-                  }
-                ],*/
-                kbWidth: 300,
-                sub_logic_id: null,
-                sub_name: ""
-            };
+                showUsualCourseDialog:false,
+                showPracticeCourseDialog:false,
+                selectedCourseIndex:0,
+                screenWidth:'',
+                screenHeight:'',
+            }
         },
-        //     computed: {
-        //         username() {
-        //             return cookie.getCookie("name");
-        //         }
-        //     },
-        //     created() {
-        //         getKB()
-        //             .then(res => {
-        //                 this.kbData = res.data;
-        //             })
-        //             .catch(() => {
-        //                 window.alert("获取课表失败!");
-        //             });
-        //     },
-        //     methods: {
-        //         onBackCource(item) {
-        //             this.$confirm("退课[" + item.name + "]?", "提示", {
-        //                 confirmButtonText: "确定",
-        //                 cancelButtonText: "取消",
-        //                 type: "warning",
-        //                 center: true
-        //             })
-        //                 .then(() => {
-        //                     //选择了退课,进行退课
-        //                     delSelectCourse(item.id)
-        //                         .then(() => {
-        //                             //退课成功,重新获取课表,发消息
-        //                             getKB()
-        //                                 .then(res => {
-        //                                     this.kbData = res.data;
-        //                                 })
-        //                                 .catch(() => {
-        //                                     window.alert("获取课表失败!");
-        //                                 });
-        //                             this.$message({
-        //                                 type: "success",
-        //                                 message: "退课成功!"
-        //                             });
-        //                         })
-        //                         .catch(error => {
-        //                             // console.log(error.response.data["non_field_errors"][0]);
-        //                             this.$message.error(error.response.data["non_field_errors"][0]);
-        //                         });
-        //                 })
-        //                 .catch(() => {
-        //                     this.$message({
-        //                         type: "info",
-        //                         message: "已取消退课"
-        //                     });
-        //                 });
-        //         },
-        //         onById() {
-        //             getCourseBySubLogicId(this.sub_logic_id)
-        //                 .then(res => {
-        //                     this.xkData = res.data;
-        //                     this.$message({
-        //                         type: "success",
-        //                         message: "查询已更新!"
-        //                     });
-        //                 })
-        //                 .catch(error => {
-        //                     this.$message.error(error.response.data);
-        //                 });
-        //         },
-        //         onByName() {
-        //             getCourseByName(this.sub_name)
-        //                 .then(res => {
-        //                     this.xkData = res.data;
-        //                     this.$message({
-        //                         type: "success",
-        //                         message: "查询已更新!"
-        //                     });
-        //                 })
-        //                 .catch(error => {
-        //                     // console.log(error.response.data["non_field_errors"][0]);
-        //                     this.$message.error(error.response.data["non_field_errors"][0]);
-        //                 });
-        //         },
-        //         onSelectCourse(cid, sub_logic_id) {
-        //             createSelectCourse({ course: cid, sub_logic_id: sub_logic_id })
-        //                 .then(() => {
-        //                     //选课成功重新获取课表
-        //                     getKB()
-        //                         .then(res => {
-        //                             this.kbData = res.data;
-        //                         })
-        //                         .catch(() => {
-        //                             window.alert("获取课表失败!");
-        //                         });
-        //                     this.$message({
-        //                         type: "success",
-        //                         message: "课表已更新!"
-        //                     });
-        //                 })
-        //                 .catch(error => {
-        //                     // console.log(error.response.data["non_field_errors"][0]);
-        //                     this.$message.error(error.response.data["non_field_errors"][0]);
-        //                 });
-        //         }
-        //     }
-        // };
+        props:{
+            usualCourses:{
+                type:Array,
+                default:()=>[]
+            },
+            practiceCourses:{
+                type:Array,
+                default:()=>[]
+            },
+            weekTable:{
+                type:Array,
+                default:()=>['一','二','三','四','五','六','日']
+            },
+            timeTable:{
+                type:Array,
+                default:()=>[1,2,3,4,5,6,7,8,9,10,11,12]
+            },
+            colorArrays: {
+                type:Array,
+                default:()=>['#ef5b9c','#f15b6c', '#f26522', '#ffd400', '#8552a1', '#7fb80e', '#65c294', '#78cdd1', '#33a3dc']
+            }
+        },
+        computed:{
+            courseWidth(){
+                return Math.max((this.screenWidth - 35) / this.weekTable.length,50)
+            },
+            courseHeight(){
+                return Math.max((this.screenHeight - 35) / this.timeTable.length,50)
+            },
+            selectedCourse(){
+                return this.usualCourses[this.selectedCourseIndex];
+            }
+        },
+        created(){
+            window.addEventListener('resize', this.getWAndH);
+            this.getWAndH();
+        },
+        mounted(){
+
+        },
+        destroyed() {
+            window.removeEventListener('resize', this.getWAndH);
+        },
+        methods:{
+            getWAndH(){
+                this.screenWidth=window.innerWidth-75;
+                this.screenHeight=window.innerWidth-250;
+            }
+        }
     }
 </script>
 
-
 <style scoped>
-    section {
-        padding-top: 20px;
+    .course-table{
+        border-radius: 12px;
     }
-
-    #curricula {
-        margin: 50px auto 0;
-        width: 1450px;
-        height: 700px;
-        background-color: antiquewhite;
+    .top {
+        display: flex;
+        flex-direction: row;
+        padding-left: 35px;
+        background-color: #31c27c;
+        color: #fff;
     }
+    .top-text {
+        width: 100px;
+        height: 35px;
+        font-size: 15px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+    }
+    .main{
+        height:1200px;
+        width:730px;
+        display:flex;
+        position: relative;
+    }
+    .flex-item {
+        width: 95px;
+        height: 200px;
+    }
+    .kcb-item {
+        position: absolute;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .period{
+        background-color:#31c27c;
+        color:#fff;
+    }
+    .small-text {
+        font-size: 22px;
+        color: #fff;
+        text-align: center;
+    }
+    .left-text {
+        width: 35px;
+        height: 100px;
+        font-size: 26px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+    }
+    .btn_practice_course{
+        position: absolute;
+        z-index: 110;
+        top: 35px;
+        right: 0px;
+        width: 100px;
+        height: 100px;
+        line-height: 24px;
+        background: #31c27c;
+        border-radius: 50px;
+        font-size: 24px;
+        text-align: center;
+        color: #fff;
+        opacity: 0.7;
+        padding: 12px;
+    }
+    .el-dialog .dialog-content{
+        color: #000;
+        line-height: 60px;
 
-    #search {
-        background-color: rgb(190, 178, 201);
-        height: 60px;
-        padding: 20px 20px 0;
+    }
+    .el-dialog .dialog-content .tip{
+        color: #000;
+        line-height: 60px;
+        text-align: center;
     }
 </style>
-

@@ -14,33 +14,20 @@ export const login = params => {
 
 //获取课程表
 export const getAllCourse = param => {
-  console.log(param);
   return axios.get(`${local_host}/api/student/course_valid`,{params:param});
 };
 
-//删除自己选的课程,提供select_course表的id
-export const delSelectCourse = scid => {
-  return axios.delete(`${local_host}/selectcourse/` + scid + '/');
+//登录
+export const searchCourse = params => {
+  return axios.get(`${local_host}/api/student/course_search`, {params:params});
 };
-
-//根据*课程号(sub_logic_id)查询开设课程
-export const getCourseBySubLogicId = sub_logic_id => {
-  return axios.get(`${local_host}/course/` + sub_logic_id + '/');
-};
-
-//根据*课程名(sub_name)查询开设课程
-export const getCourseByName = name => {
-  return axios.get(`${local_host}/course/?s=` + name);
+//获取一门课的多个教学班
+export const getSection = param => {
+  return axios.get(`${local_host}/api/student/section_valid`,{params:param});
 };
 
 //选课
-export const createSelectCourse = params => {
-  return axios.post(`${local_host}/selectcourse/`, params);
+export const selectCourse = param => {
+  return axios.post(`${local_host}/api/student/course_select`,param);
 };
 
-//----------------------------------[向网络上的指定URI发起请求]----------------------------------
-
-//GET请求
-export const getURI = uri => {
-  return axios.get(uri);
-};
