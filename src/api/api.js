@@ -30,4 +30,11 @@ export const getSection = param => {
 export const selectCourse = param => {
   return axios.post(`${local_host}/api/student/course_select`,param);
 };
-
+//显示课程表
+export const showCourseTable=param => {
+  return axios.get(`${local_host}/api/student/course_list`,{params:param});
+};
+//退课
+export const dropOneCourse = param => {
+  return axios.post(`${local_host}/api/student/course_drop`,param);
+};

@@ -166,13 +166,8 @@
                 };
                 searchCourse(params).then(res => {
                     if (res.status == 200) {
-                        let number,courses;
-                        for(var key in res.data){
-                            number=parseInt(key);
-                            courses=res.data[key];
-                        }
-                        this.courseNumber=number;
-                        this.coursesData = courses;
+                        this.courseNumber=res.data.courseNum;
+                        this.coursesData = res.data.courseList;
                         this.loading = false;
                     }
                 }).catch(() => {
@@ -201,15 +196,10 @@
                     };
                     searchCourse(params).then(res => {
                         if (res.status == 200) {
-                            let number,courses;
-                            for(var key in res.data){
-                                number=parseInt(key);
-                                courses=res.data[key];
-                            }
-                            this.courseNumber=number;
-                            this.coursesData = courses;
-                            this.$message.success('查询完成');
+                            this.courseNumber=res.data.courseNum;
+                            this.coursesData = res.data.courseList;
                             this.loading = false;
+                            this.$message.success('查询完成');
                         }
                     }).catch(() => {
                         this.$message.error('网络异常，请稍后重试！');
@@ -223,14 +213,8 @@
                 getAllCourse(params).then(res=>{
                     if(res.status==200)
                     {
-
-                        let number,courses;
-                        for(var key in res.data){
-                            number=parseInt(key);
-                            courses=res.data[key];
-                        }
-                        this.courseNumber=number;
-                        this.coursesData = courses;
+                        this.courseNumber=res.data.courseNum;
+                        this.coursesData = res.data.courseList;
                         this.loading = false;
                     }
                 }).catch(()=>{
@@ -254,7 +238,7 @@
                 }
             },
             chooseOne(row){
-                let params={courseId:row.courseId,teacherUserName:row.teacherUserName,userName:this.User};
+                let params={courseId:row.courseId,teacherUserName:row.teacherUserName,userName:this.User,semester:1,year:'2020-2021'};
                 selectCourse(params).then(res=>{
                     if(res.data===0){
                         this.$message.success('选课成功！')
