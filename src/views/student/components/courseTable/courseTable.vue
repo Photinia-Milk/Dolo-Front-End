@@ -27,21 +27,21 @@
             </div>
         </el-scrollbar>
 
-        <el-dialog
-                title="我的实践课"
-                :visible.sync="showPracticeCourseDialog"
-                width="30%"
-                center>
-            <el-scrollbar style="height: 500px;"  wrap-style="overflow-x:hidden;">
-                <div class="dialog-content">
-                    <div v-for="(item) in practiceCourses" v-bind:key="item">
-                        <div>课程名称： {{item.name}}</div>
-                        <div>上课教师： {{item.teacher}}</div>
-                    </div>
-                    <div class="tip" v-if="practiceCourses.length < 1">本学期没有实践课哦</div>
-                </div>
-            </el-scrollbar>
-        </el-dialog>
+<!--        <el-dialog-->
+<!--                title="我的实践课"-->
+<!--                :visible.sync="showPracticeCourseDialog"-->
+<!--                width="30%"-->
+<!--                center>-->
+<!--            <el-scrollbar style="height: 500px;"  wrap-style="overflow-x:hidden;">-->
+<!--                <div class="dialog-content">-->
+<!--                    <div v-for="(item) in practiceCourses" v-bind:key="item">-->
+<!--                        <div>课程名称： {{item.name}}</div>-->
+<!--                        <div>上课教师： {{item.teacher}}</div>-->
+<!--                    </div>-->
+<!--                    <div class="tip" v-if="practiceCourses.length < 1">本学期没有实践课哦</div>-->
+<!--                </div>-->
+<!--            </el-scrollbar>-->
+<!--        </el-dialog>-->
         <el-dialog
                 title="课程信息"
                 :visible.sync="showUsualCourseDialog"
@@ -78,14 +78,6 @@
             }
         },
         props:{
-            // width:{
-            //     type:Number,
-            //     default:385
-            // },
-            // height:{
-            //     type:Number,
-            //     default:635
-            // },
             usualCourses:{
                 type:Array,
                 default:()=>[]

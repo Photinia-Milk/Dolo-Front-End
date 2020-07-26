@@ -14,7 +14,6 @@ export const login = params => {
 
 //获取课程表
 export const getAllCourse = param => {
-  console.log(param);
   return axios.get(`${local_host}/api/student/course_valid`,{params:param});
 };
 
@@ -22,3 +21,13 @@ export const getAllCourse = param => {
 export const searchCourse = params => {
   return axios.get(`${local_host}/api/student/course_search`, {params:params});
 };
+//获取一门课的多个教学班
+export const getSection = param => {
+  return axios.get(`${local_host}/api/student/section_valid`,{params:param});
+};
+
+//选课
+export const selectCourse = param => {
+  return axios.post(`${local_host}/api/student/course_select`,param);
+};
+
