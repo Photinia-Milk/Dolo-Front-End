@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //本地测试环境
-let local_host = 'http://localhost:8088';
+let local_host = 'https://dolo.club/back-end';
 
 //----------------------------------[登录用]----------------------------------
 
@@ -37,4 +37,8 @@ export const showCourseTable=param => {
 //退课
 export const dropOneCourse = param => {
   return axios.post(`${local_host}/api/student/course_drop`,param);
+};
+//查询平均gpa
+export const queryAvgGpa = param => {
+  return axios.get(`${local_host}/api/student/gpa`,{params:param});
 };

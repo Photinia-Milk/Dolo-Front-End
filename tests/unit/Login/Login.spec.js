@@ -1,7 +1,8 @@
 
-import { createLocalVue, mount } from "@vue/test-utils";
+import { createLocalVue, shallowMount } from "@vue/test-utils";
 import Login2 from "../../../src/views/login/Login2";
 import BootstrapVue from "bootstrap-vue";
+import axios from "../axios"
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -10,18 +11,15 @@ localVue.use(BootstrapVue);
  * mock的axios
  * 可以根据需要添加其他函数功能
  */
-const res={
-    status:0,
-    data:{status:0}
-};
 
-const axios = {
-    post: async () => {return res},
-};
 
-const wrapper = mount(Login2, {
-    mocks: {
-        axios
+jest.mock('axios',()=>({
+    get: Promise.resolve(0)
+}));
+
+const wrapper = shallowMount(Login2, {
+    stubs:{
+        transition:false
     },
     localVue
 });
@@ -45,7 +43,6 @@ describe("init", () => {
         /**
          * 检查axios是否正确mock
          */
-        expect(wrapper.vm.axios.get()).resolves.toEqual(res)
     });
 });
 
@@ -58,6 +55,8 @@ describe("login",()=>{
         const but=wrapper.find(".btn-primary");
         expect(but.exists()).toBeTruthy();
         but.trigger("click");
-
+        wrapper.vm.$nextTick(()=>{
+            expect(wrapper.text)
+        })
     })
 });

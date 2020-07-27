@@ -4,20 +4,18 @@ import CourseAll from  "../../../../../../src/views/student/components/CourseSel
 const localVue = createLocalVue();
 localVue.use(ElementUI);
 
-let res={
-    status:200,
-    data:''
-};
+// let res={
+//     status:200,
+//     data:''
+// };
 
 const wrapper=mount(CourseAll,{
-    mocks:{
-        getAllCourse: async  (params)=>{
-            console.log(params);
-            return res;
-        }
+    stubs:{
+
     },
     localVue
 });
+
 
 describe('init', function () {
     it('init data',()=>{
@@ -54,12 +52,13 @@ describe('init', function () {
         expect(wrapper.vm.dialogFormVisible).toBeFalsy;
         expect(wrapper.vm.formLabelWidth).toEqual(formLabelWidth);
         //mock
-        res.status=200;
-        expect(wrapper.vm.getAllCourse(pageInfo)).resolves.toEqual(res);
+        // res.status=200;
+        // expect(wrapper.vm.getAllCourse(pageInfo)).resolves.toEqual(res);
     });
-    it('init create',  ()=> {
-        res.status=200;
-        wrapper.vm.getAllcourses();
+    it('init create',  async ()=> {
+        // res.status=200;
+        await wrapper.vm.getAllcourses();
+        console.log(wrapper.vm.coursesData)
         expect(wrapper.vm.loading).toBeFalsy();
     });
 });

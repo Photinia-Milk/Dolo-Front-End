@@ -30,7 +30,7 @@
                 <el-submenu index="3">
                     <template slot="title">信息查询</template>
                     <el-menu-item index="courseTable">学生课表查询</el-menu-item>
-                    <el-menu-item index="gpa">GPA/学积分查询(开发中)</el-menu-item>
+                    <el-menu-item index="queryGPA">GPA/学积分查询</el-menu-item>
                 </el-submenu>
                 <el-submenu index="4">
                     <template slot="title">教学项目报名</template>
