@@ -27,21 +27,6 @@
             </div>
         </el-scrollbar>
 
-<!--        <el-dialog-->
-<!--                title="我的实践课"-->
-<!--                :visible.sync="showPracticeCourseDialog"-->
-<!--                width="30%"-->
-<!--                center>-->
-<!--            <el-scrollbar style="height: 500px;"  wrap-style="overflow-x:hidden;">-->
-<!--                <div class="dialog-content">-->
-<!--                    <div v-for="(item) in practiceCourses" v-bind:key="item">-->
-<!--                        <div>课程名称： {{item.name}}</div>-->
-<!--                        <div>上课教师： {{item.teacher}}</div>-->
-<!--                    </div>-->
-<!--                    <div class="tip" v-if="practiceCourses.length < 1">本学期没有实践课哦</div>-->
-<!--                </div>-->
-<!--            </el-scrollbar>-->
-<!--        </el-dialog>-->
         <el-dialog
                 title="课程信息"
                 :visible.sync="showUsualCourseDialog"
@@ -146,10 +131,12 @@
                 }
             },
             dropCourse(selectedCourse){
-                let params={userName:this.User,courseId:selectedCourse.courseId,semester:1,year:'2020-2021',teacherUserName: selectedCourse.teacherUserName}
+                let params={userName:this.User,courseId:selectedCourse.courseId,semester:selectedCourse.semester,year:selectedCourse.year,teacherUserName: selectedCourse.teacherUserName}
                 dropOneCourse(params).then(res=>{
                     if(res.data===0){
-                        this.usualCourses.splice(this.selectedCourseIndex,1);
+                        this.usualCourses=this.usualCourses.filter(item=>{
+                            item.courseId!==params.courseId;
+                        })
                         this.showUsualCourseDialog = false;
                         this.$message.success('退课成功！')
                     }

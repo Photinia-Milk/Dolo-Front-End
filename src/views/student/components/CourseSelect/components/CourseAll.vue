@@ -238,7 +238,7 @@
                 }
             },
             chooseOne(row){
-                let params={courseId:row.courseId,teacherUserName:row.teacherUserName,userName:this.User,semester:1,year:'2020-2021'};
+                let params={courseId:row.courseId,teacherUserName:row.teacherUserName,userName:this.User,semester:row.semester,year:row.year};
                 selectCourse(params).then(res=>{
                     if(res.data===0){
                         this.$message.success('选课成功！')
