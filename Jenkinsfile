@@ -7,7 +7,7 @@ node{
 		sh 'git pull https://github.com/Photinia-Milk/Dolo-Front-end develop'
 	}
 	stage('Set up Env'){
-	    sh 'source /etc/profile ; npm install'
+	    sh 'source /etc/profile ; npm install' 
 	}
 	stage('Test'){
 		sh 'source /etc/profile ; echo "pass for integration" ; #npm run test:unit'
