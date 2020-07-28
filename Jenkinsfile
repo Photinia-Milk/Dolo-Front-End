@@ -1,7 +1,7 @@
 node{
 	stage('Checkout Integration'){
-		sh 'git init'
-	    sh 'git pull https://github.com/Photinia-Milk/Dolo-Front-end feat_integration'
+		sh 'git init
+			git pull https://github.com/Photinia-Milk/Dolo-Front-end feat_integration'
 	}
 	stage('Set up Env'){
 		sh 'source /etc/profile ; npm install'
