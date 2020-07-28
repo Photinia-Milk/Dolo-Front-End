@@ -18,7 +18,7 @@ describe('courseAll',function () {
         cy.get('.handle').click()
         cy.get('.active').should('have.text',20)
         //进行模糊查询
-        cy.get('.searchName > .el-input__inner').clear({force:true}).type('力学').should('have.value','力学')
+        cy.get('.searchName > .el-input__inner').clear({force:true}).type('力学').should('have.value','力学');
         cy.get('.el-button--primary').click();
         cy.get(':nth-child(n+1) > .el-table_1_column_3 > .cell').should('contain','力学')
         }

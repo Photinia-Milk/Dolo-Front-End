@@ -21,7 +21,7 @@
                         <div class="form d-flex align-items-center">
                             <div class="content">
                                 <form action="" method="post" class="form-validate" id="login-form">
-                                    <div class="form-group">
+                                    <div class="forwwm-group">
                                         <b-input v-model="user.username" id="username" name="username" :required=true data-msg="请输入用户名"  placeholder="请输入用户名"></b-input>
                                     </div>
                                     <div class="form-group">

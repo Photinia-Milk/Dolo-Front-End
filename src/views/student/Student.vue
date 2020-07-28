@@ -23,7 +23,13 @@
     export default {
         components: {
             NavBarStudent,
-        }
+        },
+        data(){
+            return{
+                screenWidth:'',
+            }
+        },
+
     }
 </script>
 

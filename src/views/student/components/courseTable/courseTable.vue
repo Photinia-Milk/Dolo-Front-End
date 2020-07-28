@@ -135,7 +135,7 @@
                 dropOneCourse(params).then(res=>{
                     if(res.data===0){
                         this.usualCourses=this.usualCourses.filter(item=>{
-                            item.courseId!==params.courseId;
+                           return item.courseId!==params.courseId;
                         })
                         this.showUsualCourseDialog = false;
                         this.$message.success('退课成功！')
