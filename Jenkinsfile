@@ -4,7 +4,7 @@ node{
 	    sh 'rm .gitignore .eslintignore .git -f -r'
 	    sh 'ls -a'
 	    sh 'git init'
-		sh 'git pull https://github.com/Photinia-Milk/Dolo-Front-end develop' 
+		sh 'git pull https://github.com/Photinia-Milk/Dolo-Front-end develop'
 	}
 	stage('Set up Env'){
 	    sh 'source /etc/profile ; npm install' 
