@@ -125,11 +125,11 @@
         mounted(){
             this.User=window.sessionStorage.getItem('student');
         },
-        computed:{
-            getEndYear(){
-                return 1;
-            }
-        },
+        // computed:{
+        //     getEndYear(){
+        //         return 1;
+        //     }
+        // },
         methods:{
             query(){
                 this.openFullScreen2();
@@ -140,7 +140,6 @@
                         this.GPADetails=res.data;
                         this.showMyGpa=true;
                         this.$message.success('查询成功！');
-                        console.log(res.data)
                     }
                 }).catch(()=>{
                     this.$message.error('请求超时，请稍后重试！')

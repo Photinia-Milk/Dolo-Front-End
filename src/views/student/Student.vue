@@ -24,11 +24,6 @@
         components: {
             NavBarStudent,
         },
-        data(){
-            return{
-                screenWidth:'',
-            }
-        },
 
     }
 </script>
