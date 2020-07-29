@@ -1,4 +1,4 @@
-    import {createLocalVue,mount } from "@vue/test-utils";
+import {createLocalVue,mount } from "@vue/test-utils";
 import ElementUI from "element-ui";
 import CourseAll from  "../../../../../../src/views/student/components/CourseSelect/components/CourseAll";
 const localVue = createLocalVue();
@@ -9,16 +9,11 @@ localVue.use(ElementUI);
 //     data:''
 // };
 
-const wrapper=mount(CourseAll,{
-    stubs:{
-
-    },
-    localVue
-});
-
 
 describe('init', function () {
     it('init data',()=>{
+
+
         const pageInfo={startIndex:1,pageSize:10};
         const userList= [];
         const category1=['民族生课程','必修课程','通识课','选修课'];
