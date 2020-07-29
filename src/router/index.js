@@ -8,6 +8,7 @@ import Login2 from "../views/login/Login2";
 import home from "../views/student/components/home/home";
 import courseSelect from "../views/student/components/CourseSelect/courseSelect";
 import courseTable from "../views/student/components/courseTable/courseTable";
+import queryGPA from "../views/student/components/queryGPA/queryGPA"
 
  //import CourseTable from "../components/CourseTable";
 Vue.use(VueRouter)
@@ -38,6 +39,10 @@ Vue.use(VueRouter)
         {
           path: 'courseTable',
           component: courseTable
+        },
+        {
+          path:'queryGPA',
+          component: queryGPA
         }
       ]
     },

@@ -21,7 +21,7 @@
                         <div class="form d-flex align-items-center">
                             <div class="content">
                                 <form action="" method="post" class="form-validate" id="login-form">
-                                    <div class="form-group">
+                                    <div class="forwwm-group">
                                         <b-input v-model="user.username" id="username" name="username" :required=true data-msg="请输入用户名"  placeholder="请输入用户名"></b-input>
                                     </div>
                                     <div class="form-group">
@@ -55,17 +55,17 @@
         methods:{
             tologin(){
               return  login(this.user).then(res=>{
-                    if(res.data.status==1){
+                    if(res.data.status==0){
                         this.$message.success('登陆成功！');
                         this.$router.push('/student');
                         window.sessionStorage.setItem('student',this.user.username);
                         return true;
                     }
-                    else if(res.data.status==0) {
-                        this.$message.success('登录成功');
-                        this.$router.push('/teacher');
-                        return true;
-                    }
+                    // else if(res.data.status==1) {
+                    //     this.$message.success('登录成功');
+                    //     this.$router.push('/teacher');
+                    //     return true;
+                    // }
                     else {
                         this.$message.error('用户名或密码错误!')
                         return false;

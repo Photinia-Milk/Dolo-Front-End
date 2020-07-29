@@ -3,7 +3,7 @@
   "reporter": "mochawesome",
   "reporterOptions": {
     "reportDir": "cypresse/results",
-    "overwrite": true,
+    "overwrite": false,
     "html": true,
     "json": true
   }

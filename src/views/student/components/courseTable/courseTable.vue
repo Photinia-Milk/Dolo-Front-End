@@ -13,12 +13,12 @@
                     <!--课表-->
                     <div v-for="(item,index) in usualCourses " v-bind:key="(item,index)">
                         <div class="flex-item kcb-item" @click="selectedCourseIndex = index, showUsualCourseDialog=true"
-                             :style="{  marginLeft:(item.day-1) * courseWidth + 'px',
-                                        marginTop:(item.period-1) * courseHeight + 5+ 'px',
+                             :style="{  marginLeft:(day2Number(item.day)-1) * courseWidth + 'px',
+                                        marginTop:(item.startTime-1) * courseHeight + 5+ 'px',
                                         width:courseWidth + 'px',
-                                        height:item.length * courseHeight - 5 +'px',
+                                        height:(item.endTime-item.startTime+1) * courseHeight - 5 +'px',
                                         backgroundColor:colorArrays[index%9]}">
-                            <div class="small-text" >{{item.name+'@'+item.room}}</div>
+                            <div class="small-text" >{{item.courseName+'@'+item.location        }}</div>
                         </div>
                     </div>
                     <!--事件课显示按钮-->
@@ -27,21 +27,6 @@
             </div>
         </el-scrollbar>
 
-<!--        <el-dialog-->
-<!--                title="我的实践课"-->
-<!--                :visible.sync="showPracticeCourseDialog"-->
-<!--                width="30%"-->
-<!--                center>-->
-<!--            <el-scrollbar style="height: 500px;"  wrap-style="overflow-x:hidden;">-->
-<!--                <div class="dialog-content">-->
-<!--                    <div v-for="(item) in practiceCourses" v-bind:key="item">-->
-<!--                        <div>课程名称： {{item.name}}</div>-->
-<!--                        <div>上课教师： {{item.teacher}}</div>-->
-<!--                    </div>-->
-<!--                    <div class="tip" v-if="practiceCourses.length < 1">本学期没有实践课哦</div>-->
-<!--                </div>-->
-<!--            </el-scrollbar>-->
-<!--        </el-dialog>-->
         <el-dialog
                 title="课程信息"
                 :visible.sync="showUsualCourseDialog"
@@ -49,23 +34,30 @@
                 center>
             <div class="dialog-content">
                 <div v-if="typeof(selectedCourse) != 'undefined'" >
-                    <div>课程名称： {{selectedCourse.name}}</div>
-                    <div>上课时间： {{selectedCourse.week + ' ' +
-                        '第' + selectedCourse.period +
-                        '-' + (Number(selectedCourse.period) + Number(selectedCourse.length) - 1) + '节'}}</div>
-                    <div>上课教师： {{selectedCourse.teacher}}</div>
-                    <div>上课地点： {{selectedCourse.room}}</div>
+                    <div>课程编号： {{selectedCourse.courseId}}</div>
+                    <div>课程类型：{{selectedCourse.courseType}}</div>
+                    <div>课程名称： {{selectedCourse.courseName}}</div>
+                    <div>上课时间： {{selectedCourse.weeks + ' ' +selectedCourse.day+' '+
+                        '第' + selectedCourse.startTime +
+                        '-' + (selectedCourse.endTime) + '节'}}</div>
+                    <div>学分：{{selectedCourse.credits}}</div>
+                    <div>上课教师： {{selectedCourse.teacherUserName}}</div>
+                    <div>授课模式：{{selectedCourse.model}}</div>
+                    <div>上课地点： {{selectedCourse.location}}</div>
+                    <div>备注：{{selectedCourse.remarks}}</div>
                 </div>
                 <div v-else class="tip" >本学期没有课哦</div>
             </div>
             <span slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="showUsualCourseDialog = false">确 定</el-button>
+                <el-button type="primary" @click="dropCourse(selectedCourse)">退课</el-button>
             </span>
         </el-dialog>
     </div>
 </template>
 
 <script>
+    import {showCourseTable,dropOneCourse} from "../../../../api/api";
     export default {
         name: "CourseTable",
         data(){
@@ -75,13 +67,11 @@
                 selectedCourseIndex:0,
                 screenWidth:'',
                 screenHeight:'',
+                usualCourses: '',
+                User:''
             }
         },
         props:{
-            usualCourses:{
-                type:Array,
-                default:()=>[]
-            },
             practiceCourses:{
                 type:Array,
                 default:()=>[]
@@ -92,7 +82,7 @@
             },
             timeTable:{
                 type:Array,
-                default:()=>[1,2,3,4,5,6,7,8,9,10,11,12]
+                default:()=>[1,2,3,4,5,6,7,8,9,10,11,12,13]
             },
             colorArrays: {
                 type:Array,
@@ -115,7 +105,13 @@
             this.getWAndH();
         },
         mounted(){
-
+            this.User=window.sessionStorage.getItem('student');
+            let param={userName:this.User};
+            showCourseTable(param).then(res=>{
+                if(res.status===200){
+                    this.usualCourses=res.data;
+                }
+            })
         },
         destroyed() {
             window.removeEventListener('resize', this.getWAndH);
@@ -124,6 +120,29 @@
             getWAndH(){
                 this.screenWidth=window.innerWidth-75;
                 this.screenHeight=window.innerWidth-250;
+            },
+            day2Number(day){
+                switch (day) {
+                    case '星期一':return 1;
+                    case '星期二':return 2;
+                    case '星期三':return 3;
+                    case '星期四':return 4;
+                    case '星期五':return 5;
+                }
+            },
+            dropCourse(selectedCourse){
+                let params={userName:this.User,courseId:selectedCourse.courseId,semester:selectedCourse.semester,year:selectedCourse.year,teacherUserName: selectedCourse.teacherUserName}
+                dropOneCourse(params).then(res=>{
+                    if(res.data===0){
+                        this.usualCourses=this.usualCourses.filter(item=>{
+                           return item.courseId!==params.courseId;
+                        })
+                        this.showUsualCourseDialog = false;
+                        this.$message.success('退课成功！')
+                    }
+                }).catch(()=>{
+                    this.$message.error('网络繁忙，请稍后重试！')
+                })
             }
         }
     }
@@ -201,7 +220,7 @@
     }
     .el-dialog .dialog-content{
         color: #000;
-        line-height: 60px;
+        line-height: 40px;
 
     }
     .el-dialog .dialog-content .tip{
