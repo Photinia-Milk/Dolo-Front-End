@@ -1,27 +1,54 @@
 {
-  "name": "font-end",
+  "name": "front-end",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "test:unit": "vue-cli-service test:unit",
+    "test:e2e": "vue-cli-service test:e2e",
+    "lint": "vue-cli-service lint",
+    "test:cov": "vue-cli-service test:unit --coverage"
   },
   "dependencies": {
+    "@fullcalendar/core": "^4.4.1",
+    "@fullcalendar/daygrid": "^4.4.2",
+    "@fullcalendar/interaction": "^4.4.2",
+    "@fullcalendar/timegrid": "^4.4.2",
+    "@fullcalendar/vue": "^4.4.2",
+    "axios": "^0.19.2",
+    "bootstrap-vue": "^2.15.0",
     "core-js": "^3.6.5",
+    "element-ui": "^2.13.2",
+    "mockjs": "^1.1.0",
+    "nprogress": "^0.2.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
+    "@lkmadushan/vue-tuicalendar": "^0.1.6",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
     "@vue/cli-plugin-router": "~4.4.0",
+    "@vue/cli-plugin-unit-jest": "^4.4.6",
     "@vue/cli-plugin-vuex": "~4.4.0",
     "@vue/cli-service": "~4.4.0",
+    "@vue/test-utils": "^1.0.3",
+    "cypress": "^4.10.0",
+    "axios": "^0.19.2",
     "babel-eslint": "^10.1.0",
+    "bootstrap": "^4.5.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "less": "^3.10.3",
+    "mocha": "^8.0.1",
+    "mocha-multi-reporters": "^1.1.7",
+    "mocha-junit-reporter": "^2.0.0",
+    "mochawesome": "^6.1.1",
+    "less-loader": "^5.0.0",
+    "sass": "^1.26.10",
+    "sass-loader": "^9.0.2",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
@@ -36,11 +63,123 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {},
+    "overrides": [
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      },
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      },
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      },
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      },
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      },
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      },
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      }
+    ]
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not dead"
+  ],
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "vue-jest"
+    },
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "!**/Login.vue",
+      "!**/PublishCourse.vue",
+      "**/views/**/*.{js,vue}",
+      "!**/node_modules/**"
+    ],
+    "coverageReporters": [
+      "html",
+      "text-summary"
+    ],
+    "snapshotSerializers": [
+      "jest-serializer-vue"
+    ],
+    "preset": "@vue/cli-plugin-unit-jest"
+  },
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "node": "current"
+            }
+          }
+        ]
+      ]
+    }
+  },
+  "presets": [
+    [
+      "env",
+      {
+        "modules": false
+      }
+    ]
   ]
 }
