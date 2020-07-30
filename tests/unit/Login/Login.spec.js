@@ -96,12 +96,15 @@ describe("login",()=>{
     });
 
     it('fail because of internet',async ()=>{
-        axios.post.mockResolvedValue('error');
+        axios.post.mockRejectedValue('error');
         wrapper.vm.user.username='1';
         wrapper.vm.user.password='1';
         const but=wrapper.find('.btn-primary');
         expect(but.exists()).toBeTruthy();
         await but.trigger("click");
-        expect($message.error).toBeCalled()
+        wrapper.vm.$nextTick(()=>{
+            expect($message.error).toHaveBeenCalledTimes(2)
+        })
+
     })
 });
