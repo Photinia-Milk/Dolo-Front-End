@@ -7,13 +7,13 @@ node{
 		sh 'git pull https://github.com/Photinia-Milk/Dolo-Front-end develop'
 	}
 	stage('Set up Env'){
-	    sh 'source /etc/profile ; npm install' 
+	    sh 'npm install' 
 	}
 	stage('Test'){
-		sh 'source /etc/profile ; echo "pass for integration" ; #npm run test:unit'
+		sh 'echo "pass for integration" ; #npm run test:unit'
 	}
 	stage('Compile-Package'){
-		sh 'source /etc/profile ; npm run build'
+		sh 'npm run build'
 	}
 	stage('Pack Docker img'){
 		sh 'docker build -t dolo:front-end .'
