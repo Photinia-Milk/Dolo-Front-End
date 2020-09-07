@@ -1,20 +1,29 @@
-import {shallowMount,createLocalVue, mount } from "@vue/test-utils";
+import {createLocalVue, mount } from "@vue/test-utils";
 import queryGpa from "../../../../../src/views/student/components/queryGPA/queryGPA";
 import ElementUI from 'element-ui'
+import axios from 'axios'
 
 const localVue = createLocalVue();
 localVue.use(ElementUI);
 
-jest.mock("axios",()=>({
-    post:()=>Promise.resolve({data:1,status:200}),
-    get:()=>Promise.resolve({data:1,status:200})
-}));
+jest.mock('axios');
+localVue.prototype.$axios=axios;
+
+const $message={
+    success:jest.fn(()=>'success'),
+    error:jest.fn(()=>'fails')
+};
+
+
 
 describe('init',()=>{
     it('init data',()=>{
 
-        const wrapper=shallowMount(queryGpa,{
-            localVue
+        let wrapper=mount(queryGpa,{
+            localVue,
+            stubs:{
+                transition:false
+            },
         });
 
         const year=['2000-2001-1','2000-2001-2','2000-2001-3',
@@ -55,38 +64,59 @@ describe('init',()=>{
 
 
 describe('query GPA',()=>{
-    it('query through directly', async ()=>{
-
-        const wrapper=mount(queryGpa,{
+    let wrapper;
+    beforeEach(()=>{
+        axios.mockClear();
+        const mockData={data:1,status:200};
+        axios.get.mockResolvedValue(mockData);
+        wrapper=mount(queryGpa,{
+            localVue,
             stubs:{
-              transition:false
+                transition:false
             },
-            localVue
-        });
-        const butt=wrapper.find('button');
-        expect(butt.exists()).toBe(true);
-        await butt.trigger('click');
-        expect(wrapper.vm.GPADetails).toEqual(1);
-        expect(wrapper.vm.showMyGpa).toBe(true);
-
+            mocks:{
+                $message,
+            }
+        })
+    });
+    afterEach(()=>{
+        wrapper.destroy();
     });
 
-    // it('.catch',()=>{
-    //
-    //     const wrapper=mount(queryGpa,{
-    //         stubs:{
-    //             transition:false
-    //         },
-    //         localVue
-    //     });
-    //
-    //     const butt=wrapper.find('button');
-    //     expect(butt.exists()).toBe(true);
-    //     butt.trigger('click');
-    //
-    //     wrapper.vm.$nextTick(()=>{
-    //         expect(wrapper.vm.GPADetails).toEqual('');
-    //         expect(wrapper.vm.showMyGpa).toBe(false);
-    //     });
-    // })
+    it('query through directly', async ()=>{
+        axios.mockClear();
+        const mockData={data:1,status:200};
+        axios.get.mockResolvedValue(mockData);
+        await wrapper.vm.query();
+        wrapper.vm.$nextTick(()=>{
+            expect(wrapper.vm.GPADetails).toEqual(1);
+            expect(wrapper.vm.showMyGpa).toBe(true);
+            expect($message.success).toBeCalled();
+        })
+    });
+
+    it('.catch',async ()=>{
+        axios.mockClear();
+        axios.get.mockRejectedValue('error');
+
+        const butt=wrapper.find('button');
+        expect(butt.exists()).toBe(true);
+        await  butt.trigger('click');
+
+        wrapper.vm.$nextTick(()=>{
+            expect(wrapper.vm.GPADetails).toEqual('');
+            expect(wrapper.vm.showMyGpa).toBe(false);
+            expect($message.error).toBeCalled();
+        });
+    });
+
+    it('query else', async ()=>{
+        axios.mockClear();
+        const mockData={data:1,status:201};
+        axios.get.mockResolvedValue(mockData);
+        await wrapper.vm.query();
+        wrapper.vm.$nextTick(()=>{
+            expect(wrapper.vm.showMyGpa).toBeFalsy();
+        })
+    });
 });

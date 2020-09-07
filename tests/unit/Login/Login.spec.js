@@ -1,13 +1,30 @@
-import { createLocalVue, shallowMount } from "@vue/test-utils";
+import {createLocalVue, mount, shallowMount} from "@vue/test-utils";
 import Login2 from "../../../src/views/login/Login2";
 import BootstrapVue from "bootstrap-vue";
+// import ElementUI from 'element-ui'
+
+import axios from 'axios'
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-jest.mock("axios",()=>({
-    post:()=>Promise.resolve({data:1,status:0})
-}));
+jest.mock('axios');
+localVue.prototype.$axios=axios;
+
+const $route={
+    path:'/student'
+};
+
+const mockPush=jest.fn(()=>true);
+const $router={
+    push:mockPush
+};
+
+const $message={
+    success:jest.fn(()=>'success'),
+    error:jest.fn(()=>'fails')
+}
+
 /**
  * mock的axios
  * 可以根据需要添加其他函数功能
@@ -39,23 +56,55 @@ describe("init", () => {
 });
 
 describe("login",()=>{
-    it("(async login)login", ()=>{
-
-        let wrapper=shallowMount(Login2,{
-            localVue
-        });
-    expect(wrapper.vm.tologin()).resolves.toBeTruthy();
+    let wrapper;
+    beforeEach(()=>{
+        axios.mockClear();
+        wrapper=mount(Login2,{
+            localVue,
+            stubs:['app-button'],
+            mocks:{
+                $route,
+                $router,
+                $message
+            }
+        })
+    });
+    afterEach(()=>{
+        wrapper.destroy();
+    });
+    it("(async login)login", async ()=>{
+        const mockData={data:{status:0}};
+        axios.post.mockResolvedValue(mockData);
+        wrapper.vm.user.username='1';
+        wrapper.vm.user.password='1';
+        const but=wrapper.find('.btn-primary');
+        expect(but.exists()).toBeTruthy();
+        await but.trigger("click");
+        expect($message.success).toHaveBeenCalledTimes(1);
+        expect($router.push).toBeCalled();
     });
 
-    it("login through button",async()=>{
-        let wrapper=shallowMount(Login2,{
-            localVue
-        });
-
-        const but=wrapper.find(".btn-primary");
+    it("login through button fail",async()=>{
+        const mockData={data:{status:1}};
+        axios.post.mockResolvedValue(mockData);
+        wrapper.vm.user.username='1';
+        wrapper.vm.user.password='1';
+        const but=wrapper.find('.btn-primary');
         expect(but.exists()).toBeTruthy();
-        but.trigger("click");
+        await but.trigger("click");
+        expect($message.error).toHaveBeenCalledTimes(1);
+    });
+
+    it('fail because of internet',async ()=>{
+        axios.post.mockRejectedValue('error');
+        wrapper.vm.user.username='1';
+        wrapper.vm.user.password='1';
+        const but=wrapper.find('.btn-primary');
+        expect(but.exists()).toBeTruthy();
+        await but.trigger("click");
         wrapper.vm.$nextTick(()=>{
+            expect($message.error).toHaveBeenCalledTimes(2)
         })
+
     })
 });
