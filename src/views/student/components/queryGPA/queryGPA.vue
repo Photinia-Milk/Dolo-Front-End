@@ -28,7 +28,7 @@
                 </el-col>
                 <el-col :span="4">
                     <el-card shadow="hover">
-                        <el-select v-model="chosenCourseType" filterable placeholder="课程类型">
+                        <el-select v-model="chosenCourseType" filterable placeholder="学积分">
                             <el-option
                                     v-for="item in courseType"
                                     :key="item"

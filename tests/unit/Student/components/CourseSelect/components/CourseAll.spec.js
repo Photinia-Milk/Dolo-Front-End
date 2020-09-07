@@ -8,6 +8,10 @@ localVue.use(ElementUI);
 //     status:200,
 //     data:''
 // };
+    jest.mock("axios",()=>({
+        post:()=>Promise.resolve({data:1,status:200}),
+        get:()=>Promise.resolve({data:1,status:200})
+    }));
 
 const wrapper=mount(CourseAll,{
     stubs:{
@@ -19,12 +23,12 @@ const wrapper=mount(CourseAll,{
 
 describe('init', function () {
     it('init data',()=>{
-        const pageInfo={startIndex:1,pageSize:10};
-        const userList= [];
+        const pageInfo={startIndex:1,pageSize:7};
+        // const userList= [];
         const category1=['民族生课程','必修课程','通识课','选修课'];
         const checkboxGroup=[];
         const searchName= "";
-        const coursesData= [];
+        // const coursesData= [];
         const  updateForm= {
             Id: "",
             courseName: "",
@@ -39,17 +43,17 @@ describe('init', function () {
         const formLabelWidth= "6em";
 
         expect(wrapper.vm.pageInfo).toEqual(pageInfo);
-        expect(wrapper.vm.userList).toEqual(userList);
+        // expect(wrapper.vm.userList).toEqual(userList);
         expect(wrapper.vm.category1).toEqual(category1);
         expect(wrapper.vm.checkboxGroup).toEqual(checkboxGroup);
         expect(wrapper.vm.trySearchName).toEqual('');
         expect(wrapper.vm.searchName).toEqual(searchName);
-        expect(wrapper.vm.coursesData).toEqual(coursesData);
-        expect(wrapper.vm.loading).toBeTruthy();
+        expect(wrapper.vm.coursesData).toBeUndefined();
+        expect(wrapper.vm.loading).toBeFalsy();
         expect(wrapper.vm.releForm).toBeUndefined();
         expect(wrapper.vm.updateForm).toStrictEqual(updateForm);
         expect(wrapper.vm.rules).toEqual(rules);
-        expect(wrapper.vm.dialogFormVisible).toBeFalsy;
+        expect(wrapper.vm.dialogFormVisible).toBeFalsy();
         expect(wrapper.vm.formLabelWidth).toEqual(formLabelWidth);
         //mock
         // res.status=200;
@@ -58,7 +62,6 @@ describe('init', function () {
     it('init create',  async ()=> {
         // res.status=200;
         await wrapper.vm.getAllcourses();
-        console.log(wrapper.vm.coursesData)
         expect(wrapper.vm.loading).toBeFalsy();
     });
 });
