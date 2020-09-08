@@ -146,9 +146,9 @@
             };
         },
         methods: {
-            // resetForm(formName) {
-            //     this.$refs[formName].resetFields();
-            // },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            },
             //为表格添加序号
             // indexMethod(index) {
             //     return index + 1;
@@ -175,11 +175,11 @@
                 })
             },
 
-            // checkNull(row) {
-            //     return row.description == null
-            //         ? "该课程暂无介绍信息 ￣□￣｜｜"
-            //         : row.description;
-            // },
+            checkNull(row) {
+                return row.description == null
+                    ? "该课程暂无介绍信息 ￣□￣｜｜"
+                    : row.description;
+            },
             searchCourse(){
                 if(this.searchName===''&&this.trySearchName===''){
                     this.$message.error('请输入课程名称！');

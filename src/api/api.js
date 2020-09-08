@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //本地测试环境
-let local_host = 'http://34.204.181.50:8081';
+let local_host = 'https://api.dolo.club';
 
 //----------------------------------[登录用]----------------------------------
 
