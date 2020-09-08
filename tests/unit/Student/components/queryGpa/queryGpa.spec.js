@@ -101,7 +101,7 @@ describe('query GPA',()=>{
 
         const butt=wrapper.find('button');
         expect(butt.exists()).toBe(true);
-        await  butt.trigger('click');
+       await  butt.trigger('click');
 
         wrapper.vm.$nextTick(()=>{
             expect(wrapper.vm.GPADetails).toEqual('');

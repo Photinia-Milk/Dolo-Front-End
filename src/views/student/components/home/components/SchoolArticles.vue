@@ -60,12 +60,12 @@
         created() {
         },
         methods: {
-            getParent(){
-                this.cardTitle = this.home.title;
-                console.log(this.home.title);
-                console.log(this.cardTitle);
-                this.cardContent = this.home.content;
-            }
+            // getParent(){
+            //     this.cardTitle = this.home.title;
+            //     console.log(this.home.title);
+            //     console.log(this.cardTitle);
+            //     this.cardContent = this.home.content;
+            // }
         },
         name: "CourseTable"
     }

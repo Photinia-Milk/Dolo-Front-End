@@ -147,6 +147,7 @@
     "collectCoverage": true,
     "collectCoverageFrom": [
       "!**/Login.vue",
+      "!**/PublishCourse.vue",
       "**/views/**/*.{js,vue}",
       "!**/node_modules/**"
     ],
